@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <title>Title</title>
+</head>
+<body>
+    <a href = "/schedule/create">스케줄 만들기</a>
+    <tr th:each="schedule: ${schedules}">
+        <td th:text="${schedule.name}">name</td>
+    </tr>
+</body>
+</html>

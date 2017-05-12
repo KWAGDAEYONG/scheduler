@@ -1,9 +1,10 @@
 package com.example.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.Where;
+
+import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -19,6 +20,9 @@ public class User{
     private String userId;
 
     private String password;
+
+    @OneToMany(mappedBy="owner")
+    private List<Schedule> schedules;
 
     public Long getId() {
         return id;
@@ -42,5 +46,13 @@ public class User{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<Schedule> schedules) {
+        this.schedules = schedules;
     }
 }
