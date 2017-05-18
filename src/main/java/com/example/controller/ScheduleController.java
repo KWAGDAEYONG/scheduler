@@ -21,14 +21,11 @@ public class ScheduleController {
     ScheduleService scheduleService;
 
     @GetMapping("/create")
-    public String create(HttpSession session){
+    public String add(HttpSession session){
         if(session.getAttribute("loginUser")==null){
             System.out.println("로그인을 먼저 해주세요");
             return "/user/login";
         }
-        User user = (User)session.getAttribute("loginUser");
-        Schedule schedule = new Schedule(user);
-        scheduleService.create(schedule);
-        return "temp";
+        return null;
     }
 }

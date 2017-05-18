@@ -21,7 +21,7 @@ public class User{
 
     private String password;
 
-    @OneToMany(mappedBy="owner")
+    @OneToOne(mappedBy="owner")
     private Schedule schedule;
 
     public Long getId() {

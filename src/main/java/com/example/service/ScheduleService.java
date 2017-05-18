@@ -13,7 +13,7 @@ public class ScheduleService {
     @Autowired
     ScheduleRepository scheduleRepository;
 
-    public Schedule create(Schedule schedule){
+    public Schedule add(Schedule schedule){
         return scheduleRepository.save(schedule);
     }
 }
