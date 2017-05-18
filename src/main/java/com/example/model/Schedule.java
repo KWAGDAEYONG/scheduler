@@ -14,7 +14,7 @@ public class Schedule {
 
     private String name;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_owner"))
     private User owner;
 
