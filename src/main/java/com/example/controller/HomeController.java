@@ -13,4 +13,6 @@ public class HomeController {
         return "/index";
     }
 
+    @GetMapping("/sample")
+    public String sample(){ return "/schedule/schedule_sample";}
 }
