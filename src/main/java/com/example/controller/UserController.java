@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(User user, HttpSession httpSession, RedirectAttributes rttr){
+    public String login(User user, HttpSession httpSession, RedirectAttributes rttr, Model model){
         System.out.println(user.getUserId());
         User dbUser = userService.selectByUserId(user.getUserId());
 
@@ -48,8 +48,11 @@ public class UserController {
             log.debug("비밀번호가 틀립니다.");
             return "redirect:/user/loginPage";
         }
+
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
-        return "index";
+
+        model.addAttribute("schedules", dbUser.getSchedules());
+        return "/schedule/scheduleList";
     }
 }

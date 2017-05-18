@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<a href="/schedule/create">스케줄 만들기</a>
+
+<div th:unless="${#lists.isEmpty(schedules)}">
+
+    <dl th:each="schedule : ${schedules}">
+        <dt class="bookHeadline">
+            <a th:href="'http://www.naver.com'" th:text="${schedule.name}">name</a>
+        </dt>
+    </dl>
+</div>
+<div th:if="${#lists.isEmpty(schedules)}">
+    <p>스케줄이 없습니다</p>
+</div>
+</body>
+</html>
