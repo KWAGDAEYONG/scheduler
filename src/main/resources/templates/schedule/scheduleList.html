@@ -14,8 +14,10 @@
         </dt>
     </dl>
 </div>
-<div th:if="${#lists.isEmpty(schedules)}">
-    <p>스케줄이 없습니다</p>
+<div th:if="${user.owner}">
+    <span th:text="${user.owner}"></span>
+    <a href="/logout">로그아웃</a>
 </div>
+
 </body>
 </html>

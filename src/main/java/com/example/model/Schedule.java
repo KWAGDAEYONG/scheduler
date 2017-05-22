@@ -14,7 +14,7 @@ public class Schedule {
     private Long id;
     @OneToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_owner"))
-    private User owner;
+    private User userId;
 
     private String date;
 
@@ -26,16 +26,16 @@ public class Schedule {
         return id;
     }
 
-    public User getOwner() {
-        return owner;
+    public User getUserId() {
+        return userId;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setOwner(User owner) {
-        this.owner = owner;
+    public void setUserId(User owner) {
+        this.userId = owner;
     }
 
     public void setDate(String date) {
@@ -54,7 +54,7 @@ public class Schedule {
     public String toString() {
         return "Schedule{" +
                 "id=" + id +
-                ", owner=" + owner +
+                ", userId=" + userId +
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
