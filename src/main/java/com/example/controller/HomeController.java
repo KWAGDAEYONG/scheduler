@@ -14,5 +14,5 @@ public class HomeController {
     }
 
     @GetMapping("/sample")
-    public String sample(){ return "/schedule/schedule_sample";}
+    public String sample(){ return "/schedule/schedule_sample2";}
 }

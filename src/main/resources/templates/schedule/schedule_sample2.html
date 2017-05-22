@@ -1,0 +1,66 @@
+<html lang="ko"><head>
+    <meta charset="utf-8"/>
+    <title>Bootstrap, from Twitter</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.css" type="text/css" />
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+    <link rel="stylesheet" href="/bootstrap-calendar-ahmontero/src/css/bootstrap.calendar.css" type="text/css" />
+
+
+    <!-- jQuery and the Calendar plugin files -->
+    <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.js" ></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js" ></script>
+    <script type="text/javascript" src="/bootstrap-calendar-ahmontero/src/bootstrap.calendar.js" ></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            var evnts = function(){
+                return {
+                    "event":
+                        [
+                            {"date":"01/01/2017","title":"1"}
+                            ,{"date":"02/02/2017","title":"2"}
+                            ,{"date":"03/03/2017","title":"34"}
+                            ,{"date":"04/04/2017","title":"123"}
+                            ,{"date":"05/05/2017","title":"223"}
+                            ,{"date":"06/06/2017","title":"4"}
+                            ,{"date":"07/07/2017","title":"5"}
+                            ,{"date":"08/08/2017","title":"14"}
+                            ,{"date":"09/09/2017","title":"10"}
+                            ,{"date":"10/10/2017","title":"10"}
+                            ,{"date":"11/11/2017","title":"10"}
+                            ,{"date":"12/12/2017","title":"10"}
+                        ]
+                }
+            };
+
+            $('#calendar').Calendar({ 'events': evnts, 'weekStart': 1 })
+                .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
+                .on('onEvent', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
+                .on('onNext', function(event){ alert("Next"); })
+                .on('onPrev', function(event){ alert("Prev"); })
+                .on('onCurrent', function(event){ alert("Current"); });
+        });
+
+    </script>
+</head>
+
+<body data-offset="50" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true">
+
+
+<div class="container">
+    <div class="row">
+        <div class="span4" id="calendar"></div>
+    </div>
+</div> <!-- /container -->
+
+</body>
+</html>
