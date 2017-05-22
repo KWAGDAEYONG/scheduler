@@ -1,6 +1,6 @@
 <html lang="ko"><head>
     <meta charset="utf-8"/>
-    <title>Bootstrap, from Twitter</title>
+    <title>Scheduler</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta content="" name="description"/>
     <meta content="" name="author"/>
@@ -58,9 +58,58 @@
 
 <div class="container">
     <div class="row">
-        <div class="span4" id="calendar"></div>
+        <div class="span4 col-md-5" id="calendar"></div>
+        <div class="col-md-6" id="schedule">
+            <div class="panel panel-default">
+                <div class="panel-heading">스프링 진도</div>
+                <div class="panel-body">
+                    스프링 3.5 ~ 끝까지
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">스케줄러 프로젝트</div>
+                <div class="panel-body">
+                    * 백엔드 : 컨트롤러 구현하기<br/>
+                    * 프론트 엔드 : 스케줄 리스트 디자인하기
+                </div>
+            </div>
+            <div class="button-list text-right">
+                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal">일정 추가하기</button>
+            </div>
+            <div class="page text-center">
+                <ul class ="pagination">
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div> <!-- /container -->
+
+<!-- Modal -->
+<div class="modal fade" id="createModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">일정 추가하기</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group form-group-lg">
+                    <input class="form-control" type="text" placeholder="일정 제목" id="subject"/>
+                </div>
+                <div class="form-group form-group-lg">
+                    <textarea class="form-control" rows="10" type="text" placeholder="내용" id="content"/>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" >등록</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
