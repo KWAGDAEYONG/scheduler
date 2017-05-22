@@ -960,20 +960,25 @@ if(!String.prototype.formatNum) {
 						var events = [];
 						var d_from = self.options.position.start;
 						var d_to = self.options.position.end;
-						var params = {from: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset()};
+						var params = {time: d_from.getTime(), to: d_to.getTime(), utc_offset_from: d_from.getTimezoneOffset(), utc_offset_to: d_to.getTimezoneOffset(), owner : 'test', content : 'test'};
 
 						if(browser_timezone.length) {
 							params.browser_timezone = browser_timezone;
 						}
 						$.ajax({
-							url: buildEventsUrl(source, params),
+							url: "/schedule/add",
 							dataType: 'json',
-							type: 'GET',
+							type: 'POST',
+							data : params,
+							timeout:60000,
 							async: false,
 							headers: self.options.headers,
+
 						}).done(function(json) {
 							if(!json.success) {
 								$.error(json.error);
+							}else{
+								console.log("success : " + params);
 							}
 							if(json.result) {
 								events = json.result;
@@ -1031,7 +1036,7 @@ if(!String.prototype.formatNum) {
 	Calendar.prototype._update = function() {
 		var self = this;
 
-		$('*[data-toggle="tooltip"]').tooltip({container: this.options.tooltip_container});
+		$('*[data-toggle="tooltip"]').attr({container: 'body'});
 
 		$('*[data-cal-date]').click(function() {
 			var view = $(this).data('cal-view');
