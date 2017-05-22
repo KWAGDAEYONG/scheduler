@@ -11,19 +11,12 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
-
-    private String name;
-
-    @ManyToOne
+    @OneToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_owner"))
     private User owner;
 
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public User getOwner() {
@@ -34,19 +27,8 @@ public class Schedule {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setOwner(User owner) {
         this.owner = owner;
-    }
-
-    public Schedule(User user){
-        this.owner = user;
-    }
-    public Schedule(){
-
     }
 
 }

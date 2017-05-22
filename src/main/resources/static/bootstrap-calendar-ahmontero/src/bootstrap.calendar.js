@@ -164,9 +164,9 @@
         }).done(function(json) {
             if(!json.success) {
                 $.error(json.error);
-                console.log("failed : " + date);
+                console.log("failed : " + scheduleData);
             }else{
-                console.log("success : " + date);
+                console.log("success : " + scheduleData);
             }
             if(json.result) {
                 events = json.result;
