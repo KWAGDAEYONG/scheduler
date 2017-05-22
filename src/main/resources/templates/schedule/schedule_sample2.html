@@ -55,6 +55,10 @@
 
 <body data-offset="50" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true">
 
+<div th:if="${schedule}">
+    <span th:text="${schedule.userId.userId}"></span><span>님, 안녕하세요!</span><br/>
+    <a href="/user/logout">로그아웃</a>
+</div>
 
 <div class="container">
     <div class="row">

@@ -21,7 +21,7 @@ public class User{
 
     private String password;
 
-    @OneToOne(mappedBy="owner")
+    @OneToOne(mappedBy="userId")
     private Schedule schedule;
 
     public Long getId() {
@@ -55,4 +55,5 @@ public class User{
     public void setSchedule(Schedule schedule) {
         this.schedule = schedule;
     }
+
 }

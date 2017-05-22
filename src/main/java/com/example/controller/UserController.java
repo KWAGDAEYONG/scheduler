@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.model.Schedule;
+import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import com.example.model.User;
 import com.example.utility.UserUtility;
@@ -52,8 +54,9 @@ public class UserController {
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
-        model.addAttribute("user",dbUser);
+        model.addAttribute("schedule",dbUser.getSchedule());
 
-        return "/schedule/schedule_sample";
+
+        return "/schedule/schedule_sample2";
     }
 }
