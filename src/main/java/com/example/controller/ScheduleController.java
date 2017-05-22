@@ -24,6 +24,7 @@ public class ScheduleController {
 
     @PostMapping("/add")
     public String add(HttpSession session, @RequestBody Schedule schedule){
+
         if(session.getAttribute("loginUser")==null){
             System.out.println("로그인을 먼저 해주세요");
             return "/user/login";

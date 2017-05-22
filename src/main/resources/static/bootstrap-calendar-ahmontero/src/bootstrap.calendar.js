@@ -152,11 +152,13 @@
     };
 
     Plugin.prototype.addEvent = function(date){
-        var scheduleData = "{owner:owner, date:"+date+", content: content}";
+        var scheduleData = '{"date":"'+date+'", "content":"content"}';
+        console.log(scheduleData);
         $.ajax({
             url: "/schedule/add",
             dataType: 'json',
             type: 'POST',
+            contentType: "application/json; charset=UTF-8",
             data : scheduleData,
             timeout:60000,
             async: false,
