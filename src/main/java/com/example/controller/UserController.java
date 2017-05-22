@@ -52,6 +52,8 @@ public class UserController {
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
+        model.addAttribute("user",dbUser);
+
         return "/schedule/schedule_sample";
     }
 }
