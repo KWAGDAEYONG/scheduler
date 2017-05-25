@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by user on 2017-05-12.
@@ -54,8 +55,7 @@ public class UserController {
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
-        model.addAttribute("schedule",dbUser.getSchedule());
-
+        model.addAttribute("user",dbUser);
 
         return "/schedule/schedule_sample2";
     }

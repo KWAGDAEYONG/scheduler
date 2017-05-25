@@ -21,8 +21,8 @@ public class User{
 
     private String password;
 
-    @OneToOne(mappedBy="userId")
-    private Schedule schedule;
+    @OneToMany(mappedBy="userId")
+    private List<Schedule> schedules;
 
     public Long getId() {
         return id;
@@ -48,12 +48,11 @@ public class User{
         this.password = password;
     }
 
-    public Schedule getSchedule() {
-        return schedule;
+    public List<Schedule> getSchedules() {
+        return schedules;
     }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
+    public void setSchedules(List<Schedule> schedule) {
+        this.schedules = schedule;
     }
-
 }

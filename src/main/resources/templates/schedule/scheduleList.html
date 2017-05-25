@@ -7,7 +7,6 @@
 <a href="/schedule/create">스케줄 만들기</a>
 
 <div th:unless="${#lists.isEmpty(schedules)}">
-
     <dl th:each="schedule : ${schedules}">
         <dt class="bookHeadline">
             <a th:href="'http://www.naver.com'" th:text="${schedule.name}">name</a>
