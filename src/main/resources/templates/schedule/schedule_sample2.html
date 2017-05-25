@@ -19,29 +19,14 @@
     <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js" ></script>
     <script type="text/javascript" src="/bootstrap-calendar-ahmontero/src/bootstrap.calendar.js" ></script>
 
-    <script type="text/javascript">
+    <script type="text/javascript" th:inline="javascript">
         $(document).ready(function(){
-
+            /*<![CDATA[*/
+            var eventList = /*[[${eventList}]]*/;
             var evnts = function(){
-                return {
-                    "event":
-                        [
-                            {"date":"01/01/2017","title":"1"}
-                            ,{"date":"02/02/2017","title":"2"}
-                            ,{"date":"03/03/2017","title":"34"}
-                            ,{"date":"04/04/2017","title":"123"}
-                            ,{"date":"05/05/2017","title":"223"}
-                            ,{"date":"06/06/2017","title":"4"}
-                            ,{"date":"07/07/2017","title":"5"}
-                            ,{"date":"08/08/2017","title":"14"}
-                            ,{"date":"09/09/2017","title":"10"}
-                            ,{"date":"10/10/2017","title":"10"}
-                            ,{"date":"11/11/2017","title":"10"}
-                            ,{"date":"12/12/2017","title":"10"}
-                        ]
-                }
+                return (eventList === null) ? {"event" : [{"date" : "05/05/2017", "title" : "1"}]} : {"event" : eventList}
             };
-
+            /*]]>*/
             $('#calendar').Calendar({ 'events': evnts, 'weekStart': 1 })
                 .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
                 .on('onEvent', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
@@ -60,14 +45,6 @@
     <a href="/user/logout">로그아웃</a>
 </div>
 
-<div th:unless="${#lists.isEmpty(user.schedules)}">
-    <dl th:each="schedule : ${user.schedules}">
-        <dt class="schedule">
-            <span th:text="${schedule.time}">time</span>
-            <a th:href="'http://www.naver.com'" th:text="${schedule.content}">name</a>
-        </dt>
-    </dl>
-</div>
 
 <div th:if="${#lists.isEmpty(user.schedules)}">
     <p>스케줄이 없습니다</p>
@@ -81,19 +58,15 @@
             <div class="page-header">
                 <h1>5월 x일 일정 <small>Schedule</small></h1>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">스프링 진도</div>
-                <div class="panel-body">
-                    스프링 3.5 ~ 끝까지
+            <div th:unless="${#lists.isEmpty(user.schedules)}">
+                <div th:each="schedule : ${user.schedules}">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" >시간 : <span th:text="${schedule.time}">time</span></div>
+                        <div class="panel-body" th:text="${schedule.content}">name</div>
+                    </div>
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">스케줄러 프로젝트</div>
-                <div class="panel-body">
-                    * 백엔드 : 컨트롤러 구현하기<br/>
-                    * 프론트 엔드 : 스케줄 리스트 디자인하기
-                </div>
-            </div>
+
             <div class="button-list text-right">
                 <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal">일정 추가하기</button>
             </div>
