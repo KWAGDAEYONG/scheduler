@@ -47,9 +47,9 @@
                             '<thead class="calendar-header"></thead>'+
                             '<tbody class="calendar-body"></tbody>'+
                             '<tfoot>'+
-                                '<th colspan="2" class="sel" id="last"><div class="arrow"><i class="icon-arrow-left"></i></div></th>'+
+                                '<th colspan="2" class="sel" id="last"><div class="arrow"><i class="icon-arrow-left "><span class="glyphicon glyphicon-arrow-left"></span></i></div></th>'+
                                 '<th colspan="3" class="sel" id="current">%msg_today%</th>'+
-                                '<th colspan="2" class="sel" id="next"><div class="arrow"><i class="icon-arrow-right"></i></div></th>'+
+                                '<th colspan="2" class="sel" id="next"><div class="arrow"><i class="icon-arrow-right"><span class="glyphicon glyphicon-arrow-right"></span></i></div></th>'+
                             '</tfoot>'+
                         '</table>'+
                     '',

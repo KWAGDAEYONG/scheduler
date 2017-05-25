@@ -109,7 +109,7 @@
 }
 
 .calendar TFOOT, .calendar TFOOT TR TH.sel {
-     height: 15px;
+     height: 30px;
      width: 50px;
 
      font-size: 28px;
@@ -136,6 +136,9 @@
 }
 
 .calendar .arrow{
-     padding:10px 0px 0px 0px;
+     padding:5px 0px 5px 0px;
 }
 
+#schedule{
+     padding:20px 15px 0px 15px;
+}
