@@ -55,10 +55,24 @@
 
 <body data-offset="50" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true">
 
-<div th:if="${schedule}">
-    <span th:text="${schedule.userId.userId}"></span><span>님, 안녕하세요!</span><br/>
+<div th:if="${user}">
+    <span th:text="${user.userId}"></span><span>님, 안녕하세요!</span><br/>
     <a href="/user/logout">로그아웃</a>
 </div>
+
+<div th:unless="${#lists.isEmpty(user.schedules)}">
+    <dl th:each="schedule : ${user.schedules}">
+        <dt class="schedule">
+            <span th:text="${schedule.time}">time</span>
+            <a th:href="'http://www.naver.com'" th:text="${schedule.content}">name</a>
+        </dt>
+    </dl>
+</div>
+
+<div th:if="${#lists.isEmpty(user.schedules)}">
+    <p>스케줄이 없습니다</p>
+</div>
+
 
 <div class="container">
     <div class="row">

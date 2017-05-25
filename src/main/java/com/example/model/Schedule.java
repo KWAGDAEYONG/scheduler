@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -12,8 +14,9 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
-    @OneToOne
-    @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_owner"))
+    @ManyToOne
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_user"))
+    @JsonProperty
     private User userId;
 
     private String date;
@@ -22,20 +25,12 @@ public class Schedule {
 
     private String content;
 
-    public Long getId() {
-        return id;
-    }
-
-    public User getUserId() {
-        return userId;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
 
-    public void setUserId(User owner) {
-        this.userId = owner;
+    public void setUserId(User userId) {
+        this.userId = userId;
     }
 
     public void setDate(String date) {
@@ -48,6 +43,26 @@ public class Schedule {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public User getUserId() {
+        return userId;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getContent() {
+        return content;
     }
 
     @Override
