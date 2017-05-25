@@ -2,6 +2,7 @@ package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
 import java.util.Date;
 
@@ -75,4 +76,5 @@ public class Schedule {
                 ", content='" + content + '\'' +
                 '}';
     }
+
 }

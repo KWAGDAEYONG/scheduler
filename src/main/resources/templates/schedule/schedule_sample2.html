@@ -60,6 +60,8 @@
     <a href="/user/logout">로그아웃</a>
 </div>
 
+<div th:text="${schedules}">json</div>
+
 <div th:unless="${#lists.isEmpty(user.schedules)}">
     <dl th:each="schedule : ${user.schedules}">
         <dt class="schedule">
