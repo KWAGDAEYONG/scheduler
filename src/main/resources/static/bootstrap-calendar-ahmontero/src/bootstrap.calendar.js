@@ -114,6 +114,7 @@
     Plugin.prototype.renderEvents = function (events, elem) {
         var live_date = this.live_date;
         var msg_evnts_hdr = this.msg_events_hdr;
+        console.log(events);
         for(var i=1; i<=daysInMonth[live_date.getMonth()]; i++){
             $.each(events.event, function(){
                 var year = 1900 + live_date.getYear();
@@ -121,7 +122,7 @@
 
                 var view_date = new Date(year, month, i, 0,0,0,0);
                 var event_date = new Date(this.date);
-
+                console.log("date " + event_date.getDate());
                 if( event_date.getDate() == view_date.getDate()
                     && event_date.getMonth() == view_date.getMonth()
                     && event_date.getFullYear() == view_date.getFullYear()
@@ -134,7 +135,7 @@
                     .append('<span class="weekday">' +i+ '</span>')
                     .popover({
                         'title': msg_evnts_hdr,
-                        'content': 'You have ' +this.title+ ' appointments',
+                        'content': 'You have ' +this.content+ ' appointments',
                         'delay': { 'show': 250, 'hide': 250 }
                     });
                 }

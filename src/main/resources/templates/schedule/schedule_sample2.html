@@ -22,12 +22,14 @@
     <script type="text/javascript" th:inline="javascript">
         $(document).ready(function(){
             /*<![CDATA[*/
-            var eventList = /*[[${eventList}]]*/;
-            var evnts = function(){
-                return (eventList === null) ? {"event" : [{"date" : "05/05/2017", "title" : "1"}]} : {"event" : eventList}
-            };
+            var eventList = eval(/*[[${schedules}]]*/);
+            var eventFunc = function(){
+                return {
+                    "event" : eventList
+                }
+            }
             /*]]>*/
-            $('#calendar').Calendar({ 'events': evnts, 'weekStart': 1 })
+            $('#calendar').Calendar({ 'events': eventFunc, 'weekStart': 1 })
                 .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
                 .on('onEvent', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
                 .on('onNext', function(event){ alert("Next"); })
