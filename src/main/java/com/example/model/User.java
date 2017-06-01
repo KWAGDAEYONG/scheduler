@@ -22,6 +22,7 @@ public class User{
     private String password;
 
     @OneToMany(mappedBy="userId")
+    @OrderBy("date ASC")
     private List<Schedule> schedules;
 
     public Long getId() {
