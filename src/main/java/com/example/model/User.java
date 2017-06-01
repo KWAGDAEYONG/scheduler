@@ -55,4 +55,5 @@ public class User{
     public void setSchedules(List<Schedule> schedule) {
         this.schedules = schedule;
     }
+
 }
