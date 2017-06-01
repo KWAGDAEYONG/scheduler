@@ -1,6 +1,7 @@
 package com.example.controller;
 
 import com.example.model.Schedule;
+import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import com.example.model.User;
 import com.example.utility.JsonConverter;
@@ -57,8 +58,8 @@ public class UserController {
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
         model.addAttribute("user",dbUser);
-        //System.out.println(JsonConverter.scheduleToJson(dbUser.getSchedules()));
         model.addAttribute("schedules",JsonConverter.scheduleToJson(dbUser.getSchedules()));
+
         return "/schedule/schedule_sample2";
     }
 }
