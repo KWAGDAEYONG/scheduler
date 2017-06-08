@@ -37,6 +37,7 @@
             msg_months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             msg_today: 'Today',
             msg_events_header: 'Events Today',
+            click_date : null,
             events: null
         },
 
@@ -114,7 +115,6 @@
     Plugin.prototype.renderEvents = function (events, elem) {
         var live_date = this.live_date;
         var msg_evnts_hdr = this.msg_events_hdr;
-        console.log(events);
         for(var i=1; i<=daysInMonth[live_date.getMonth()]; i++){
             $.each(events.event, function(){
                 var year = 1900 + live_date.getYear();
@@ -122,7 +122,6 @@
 
                 var view_date = new Date(year, month, i, 0,0,0,0);
                 var event_date = new Date(this.date);
-                console.log("date " + event_date.getDate());
                 if( event_date.getDate() == view_date.getDate()
                     && event_date.getMonth() == view_date.getMonth()
                     && event_date.getFullYear() == view_date.getFullYear()
@@ -132,17 +131,34 @@
                     .removeClass("day")
                     .addClass('holiday')
                     .empty()
-                    .append('<span class="weekday">' +i+ '</span>')
-                    .popover({
-                        'title': msg_evnts_hdr,
-                        'content': 'You have ' +this.content+ ' appointments',
-                        'delay': { 'show': 250, 'hide': 250 }
-                    });
+                    .append('<span class="weekday">' +i+ '</span>');
                 }
             });
         }
     };
 
+
+    Plugin.prototype.renderSchedule = function(day, month, year, events){
+        $('#scheduleHeader').empty();
+        $('#scheduleHeader').append(
+            '<h1>'+month+'월 '+day +'일 일정 <small>Schedule</small></h1>'
+        )
+
+        $('#scheduleList').empty();
+        $.each(events.event, function(){
+            console.log("year : "+year + ", month : "+month +", day : "+day)
+            var event_date = new Date(this.date);
+            if( event_date.getDate() === day
+            ){
+
+                $('#scheduleList').append('<div class="panel panel-default">'
+                    +'<div class="panel-heading"> 날짜 : <span>'+this.date+'</span>'
+                    + ' 시간 : <span>' + this.time
+                    + '</span></div><div class="panel-body">'+this.content+'</div></div>');
+            }
+        });
+
+    };
 
     Plugin.prototype.loadEvents = function () {
         if(!(this.events === null)){
@@ -176,6 +192,7 @@
             }
         });
     }
+
 
     Plugin.prototype.renderCalendar = function (date) {
         var mon = new Date(this.yy, this.mm, 1);
@@ -308,11 +325,14 @@
                                 month: month,
                                 year: year
                             });
+                            this.click_date = new Date(day, month, year, 0,0,0,0);
+                            this.renderSchedule(day,month, year, this.events.apply(this, []));
                         }else if(target.is('.today')){
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
                             year = parseInt(target.attr('year'), 10)||1;
 
+                            this.click_date = new Date(day, month, year, 0,0,0,0);
                             this.element.trigger({
                                 type: 'changeDay',
                                 day: day,
@@ -328,6 +348,7 @@
                                     this.update_date('prv');
                                     var prv = new Date(this.yp, this.mm, 1);
                                     this.live_date = prv;
+                                    this.requestEvents(prv);
                                     this.renderCalendar(prv, this.events);
                                     this.element.trigger({
                                         type: 'onPrev'
@@ -346,6 +367,7 @@
                                     this.update_date('nxt');
                                     var nxt = new Date(this.yn, this.mm, 1);
                                     this.live_date = nxt;
+                                    this.requestEvents(nxt);
                                     this.renderCalendar(nxt, this.events);
                                     this.element.trigger({
                                         type: 'onNext'
@@ -362,6 +384,21 @@
                 }
             }
     };
+
+    Plugin.prototype.requestEvents = function(date){
+        $.ajax({
+            type:"POST",
+            url : "",
+            success : function(data) {
+                this.events = function () {
+                    return {
+                        "event": data
+                    }
+                }
+                console.log(data);
+            }
+        });
+    }
 
     Plugin.prototype.update_date = function (action) {
         var now = new Date();
