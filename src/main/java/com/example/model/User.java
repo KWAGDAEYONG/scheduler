@@ -1,6 +1,7 @@
 package com.example.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
@@ -15,8 +16,10 @@ public class User{
 
     @Id
     @GeneratedValue
+    @JsonProperty
     private Long id;
 
+    @JsonProperty
     private String userId;
 
     private String password;
@@ -51,10 +54,6 @@ public class User{
 
     public List<Schedule> getSchedules() {
         return schedules;
-    }
-
-    public void setSchedules(List<Schedule> schedule) {
-        this.schedules = schedule;
     }
 
 }

@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class JsonConverter {
-    public static String scheduleToJson(List<Schedule> schedules){
+    public static String schedulesToJson(List<Schedule> schedules){
         String result = "[";
 
         for(int i = 0; i<schedules.size(); i++){
@@ -21,5 +21,9 @@ public class JsonConverter {
         }
         result += "]";
         return result;
+    }
+
+    public static String scheduleToJson(Schedule schedule){
+        return "{"+'"'+"date"+'"'+":"+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
     }
 }

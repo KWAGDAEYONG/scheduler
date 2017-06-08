@@ -58,7 +58,7 @@ public class UserController {
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
         model.addAttribute("user",dbUser);
-        model.addAttribute("schedules",JsonConverter.scheduleToJson(dbUser.getSchedules()));
+        model.addAttribute("schedules",JsonConverter.schedulesToJson(dbUser.getSchedules()));
 
         return "/schedule/schedule_sample2";
     }
