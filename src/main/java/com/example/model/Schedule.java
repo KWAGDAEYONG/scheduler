@@ -21,6 +21,8 @@ public class Schedule {
     @JsonProperty
     private User userId;
 
+    private int month;
+
     private String date;
 
     private String time;
@@ -65,6 +67,14 @@ public class Schedule {
 
     public String getContent() {
         return content;
+    }
+
+    public void setMonth(String date) {
+        this.month = Integer.parseInt(this.date.substring(5,7));
+    }
+
+    public int getMonth() {
+        return month;
     }
 
     @Override

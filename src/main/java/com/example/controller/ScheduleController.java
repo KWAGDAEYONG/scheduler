@@ -29,15 +29,15 @@ public class ScheduleController {
 
         Schedule addSchedule = schedule;
         addSchedule.setUserId(user);
-
+        addSchedule.setMonth(schedule.getDate());
         String test = JsonConverter.scheduleToJson(scheduleService.add(addSchedule));
         System.out.println(test);
         return test;
     }
 
     @GetMapping("/prevOrNext")
-    public String prevOrNext(String targetDate){
-        String test = JsonConverter.schedulesToJson(scheduleService.prevOrNextSchedule(targetDate));
+    public String prevOrNext(int month){
+        String test = JsonConverter.schedulesToJson(scheduleService.prevOrNextSchedule(month));
         System.out.println(test);
         return test;
     }

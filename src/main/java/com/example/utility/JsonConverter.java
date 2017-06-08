@@ -24,6 +24,6 @@ public class JsonConverter {
     }
 
     public static String scheduleToJson(Schedule schedule){
-        return "{"+'"'+"date"+'"'+":"+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
+        return "{"+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
     }
 }
