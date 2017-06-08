@@ -110,7 +110,8 @@ click_date = null;
 
 
         console.log("today");
-        this.click_date = now;
+        click_date = now;
+        console.log(now);
         this.renderCalendar(now);
     };
 
@@ -170,8 +171,8 @@ click_date = null;
         }
     };
 
-    Plugin.prototype.addEvent = function(date){
-        var scheduleData = '{"date":"'+date+'", "content":"content"}';
+    Plugin.prototype.addEvent = function(date, content){
+        var scheduleData = '{"date":"'+date+'", "content:"'+content+'"}';
         console.log(scheduleData);
         $.ajax({
             url: "/schedule/add",
@@ -329,7 +330,7 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-                            this.click_date = new Date(day, month, year, 0,0,0,0);
+                            click_date = new Date(day, month, year, 0,0,0,0);
                             this.renderSchedule(day,month, year, this.events.apply(this, []));
                         }else if(target.is('.today')){
                             day = parseInt(target.attr('day'), 10)||1;
@@ -343,7 +344,7 @@ click_date = null;
                             });
 
                             console.log("today");
-                            this.click_date = new Date(day, month, year, 0,0,0,0);
+                            click_date = new Date(day, month, year, 0,0,0,0);
             }
                         break;
                     case 'th':
@@ -393,7 +394,7 @@ click_date = null;
     Plugin.prototype.requestEvents = function(date){
         $.ajax({
             type:"GET",
-            url : "/prevOrNext",
+            url : "/schedule/prevOrNext",
             data : {month : date.getMonth()},
             success : function(data) {
                 this.events = function () {
