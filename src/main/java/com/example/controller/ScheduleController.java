@@ -37,7 +37,7 @@ public class ScheduleController {
 
     @GetMapping("/prevOrNext")
     public String prevOrNext(int month){
-        String test = JsonConverter.schedulesToJson(scheduleService.prevOrNextSchedule(month));
+        String test = JsonConverter.schedulesToJson(scheduleService.prevOrNextSchedule(++month));
         System.out.println(test);
         return test;
     }
