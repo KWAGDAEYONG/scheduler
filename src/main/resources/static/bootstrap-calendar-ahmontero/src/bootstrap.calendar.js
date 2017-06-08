@@ -8,7 +8,7 @@
  * Further changes, comments: @addyosmani
  * Licensed under the MIT license
  */
-
+click_date = null;
 
 // the semi-colon before the function invocation is a safety
 // net against concatenated scripts and/or other plugins
@@ -37,7 +37,6 @@
             msg_months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
             msg_today: 'Today',
             msg_events_header: 'Events Today',
-            click_date : null,
             events: null
         },
 
@@ -109,6 +108,9 @@
             this.element.on('click', $.proxy(this.show, this));
         }
 
+
+        console.log("today");
+        this.click_date = now;
         this.renderCalendar(now);
     };
 
@@ -306,14 +308,16 @@
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
                             year = parseInt(target.attr('year'), 10)||1;
-
-                            this.addEvent("2017-05-20");
+                            //this.addEvent("2017-05-20") ;
                             this.element.trigger({
                                 type: 'changeDay',
                                 day: day,
                                 month: month,
                                 year: year
                             });
+                            console.log("day");
+                            click_date = new Date(day, month, year, 0,0,0,0);
+                            console.log(click_date);
                         }else if(target.is('.holiday')){
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
@@ -331,14 +335,15 @@
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
                             year = parseInt(target.attr('year'), 10)||1;
-
-                            this.click_date = new Date(day, month, year, 0,0,0,0);
                             this.element.trigger({
                                 type: 'changeDay',
                                 day: day,
                                 month: month,
                                 year: year
                             });
+
+                            console.log("today");
+                            this.click_date = new Date(day, month, year, 0,0,0,0);
             }
                         break;
                     case 'th':
@@ -387,8 +392,9 @@
 
     Plugin.prototype.requestEvents = function(date){
         $.ajax({
-            type:"POST",
-            url : "",
+            type:"GET",
+            url : "/prevOrNext",
+            data : {month : date.getMonth()},
             success : function(data) {
                 this.events = function () {
                     return {

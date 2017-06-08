@@ -28,6 +28,7 @@
                     "event" : eventList
                 }
             }
+            click_date = null;
             /*]]>*/
             $('#calendar').Calendar({ 'events': eventFunc, 'weekStart': 1 })
                 .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
@@ -39,12 +40,10 @@
 
         $(document).on("click", "#makeModal", function () {
             console.log("clicked");
-            var date = $(this).data('live_date');
-            $("#modalTitle").append(date);
+            var date = click_date;
+            $("#modalTitle").empty();
+            $("#modalTitle").append(date.getFullYear()+'년 '+date.getMonth()+'월 '+date.getDate()+'일 일정 추가');
             console.log(date);
-            // As pointed out in comments,
-            // it is superfluous to have to manually call the modal.
-            // $('#addBookDialog').modal('show');
         });
 
     </script>
@@ -77,7 +76,7 @@
             일정이 없습니다.
             </p>
             <div class="button-list text-right">
-                <button type="button" id="makeModal" class="btn btn-default" data-toggle="modal" data-date="live_date" data-target="#createModal">일정 추가하기</button>
+                <button type="button" id="makeModal" class="btn btn-default" data-toggle="modal" data-target="#createModal">일정 추가하기</button>
             </div>
             <div class="page text-center">
                 <ul class ="pagination">
