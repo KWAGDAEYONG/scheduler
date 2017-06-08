@@ -15,6 +15,7 @@ public class Schedule {
     @Id
     @GeneratedValue
     private Long id;
+
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_user"))
     @JsonProperty

@@ -3,36 +3,42 @@ package com.example.controller;
 import com.example.model.Schedule;
 import com.example.model.User;
 import com.example.service.ScheduleService;
+import com.example.service.UserService;
+import com.example.utility.JsonConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by user on 2017-05-12.
  */
-@Controller
+@RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
 
     @Autowired
     ScheduleService scheduleService;
-
+    @Autowired
+    UserService userService;
     @PostMapping("/add")
-    public String add(HttpSession session, @RequestBody Schedule schedule){
+    public String add(@RequestBody Schedule schedule, HttpSession httpSession){
+        User user = (User)httpSession.getAttribute("loginUser");
 
-        if(session.getAttribute("loginUser")==null){
-            System.out.println("로그인을 먼저 해주세요");
-            return "/user/login";
-        }
+        Schedule addSchedule = schedule;
+        addSchedule.setUserId(user);
 
-        System.out.println(schedule);
+        String test = JsonConverter.scheduleToJson(scheduleService.add(addSchedule));
+        System.out.println(test);
+        return test;
+    }
 
-        scheduleService.add(schedule);
-        return "/schedule/schedule_sample";
+    @GetMapping("/prevOrNext")
+    public String prevOrNext(String targetDate){
+        String test = JsonConverter.schedulesToJson(scheduleService.prevOrNextSchedule(targetDate));
+        System.out.println(test);
+        return test;
     }
 }

@@ -10,5 +10,6 @@ import java.util.List;
  * Created by user on 2017-05-11.
  */
 public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-
+    List<Schedule> findByDate(String date);
+    List<Schedule> findByUserId(User userId);
 }
