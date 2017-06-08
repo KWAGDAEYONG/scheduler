@@ -393,7 +393,7 @@ click_date = null;
     Plugin.prototype.requestEvents = function(date){
         $.ajax({
             type:"GET",
-            url : "/prevOrNext",
+            url : "/schedule/prevOrNext",
             data : {month : date.getMonth()},
             success : function(data) {
                 this.events = function () {
