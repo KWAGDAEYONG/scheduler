@@ -32,9 +32,19 @@
             $('#calendar').Calendar({ 'events': eventFunc, 'weekStart': 1 })
                 .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
                 .on('onEvent', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
-                .on('onNext', function(event){ alert("Next"); })
-                .on('onPrev', function(event){ alert("Prev"); })
+                .on('onNext', function(event){ alert("다음 달로 이동"); })
+                .on('onPrev', function(event){ alert("이전 달로 이동"); })
                 .on('onCurrent', function(event){ alert("Current"); });
+        });
+
+        $(document).on("click", "#makeModal", function () {
+            console.log("clicked");
+            var date = $(this).data('live_date');
+            $("#modalTitle").append(date);
+            console.log(date);
+            // As pointed out in comments,
+            // it is superfluous to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
         });
 
     </script>
@@ -42,45 +52,32 @@
 
 <body data-offset="50" data-target=".subnav" data-spy="scroll" data-twttr-rendered="true">
 
-<div th:if="${user}">
-    <span th:text="${user.userId}"></span><span>님, 안녕하세요!</span><br/>
-    <a href="/user/logout">로그아웃</a>
-</div>
-
-<div th:text="${schedules}">json</div>
-
-<div th:unless="${#lists.isEmpty(user.schedules)}">
-    <dl th:each="schedule : ${user.schedules}">
-        <dt class="schedule">
-            <span th:text="${schedule.time}">time</span>
-            <a th:href="'http://www.naver.com'" th:text="${schedule.content}">name</a>
-        </dt>
-    </dl>
-</div>
-
-<div th:if="${#lists.isEmpty(user.schedules)}">
-    <p>스케줄이 없습니다</p>
-</div>
-
 
 <div class="container">
+    <div class="alert alert-success" role="alert">
+        <div th:if="${user}" class="text-right">
+            <span th:text="${user.userId}"></span><span>님, 안녕하세요!</span>&nbsp;
+            <span><a class="btn btn-primary btn-sm " href="/user/logout" role="button">로그아웃</a></span>
+        </div>
+
+        <div th:if="${#lists.isEmpty(user.schedules)}">
+            <p>스케줄이 없습니다</p>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="container">
+
     <div class="row">
         <div class="span4 col-md-5" id="calendar" ></div>
-        <div class="col-md-6" id="schedule">
-            <div class="page-header">
-                <h1>5월 x일 일정 <small>Schedule</small></h1>
-            </div>
-            <div th:unless="${#lists.isEmpty(user.schedules)}">
-                <div th:each="schedule : ${user.schedules}">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" >시간 : <span th:text="${schedule.time}">time</span></div>
-                        <div class="panel-body" th:text="${schedule.content}">name</div>
-                    </div>
-                </div>
-            </div>
-
+        <div class="col-md-6">
+            <p>
+            일정이 없습니다.
+            </p>
             <div class="button-list text-right">
-                <button type="button" class="btn btn-default" data-toggle="modal" data-target="#createModal">일정 추가하기</button>
+                <button type="button" id="makeModal" class="btn btn-default" data-toggle="modal" data-date="live_date" data-target="#createModal">일정 추가하기</button>
             </div>
             <div class="page text-center">
                 <ul class ="pagination">
@@ -99,7 +96,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">일정 추가하기</h4>
+                <h4 class="modal-title" id="modalTitle">2017년 5월 25일 일정 추가</h4>
             </div>
             <div class="modal-body">
                 <div class="form-group form-group-lg">
