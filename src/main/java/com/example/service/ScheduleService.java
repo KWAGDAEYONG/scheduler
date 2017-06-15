@@ -19,8 +19,11 @@ public class ScheduleService {
     public Schedule add(Schedule schedule){
         return scheduleRepository.save(schedule);
     }
-    public List<Schedule> prevOrNextSchedule(int month){return  scheduleRepository.findByMonth(month);}
     public List<Schedule> selectByUser(User userId){
         return scheduleRepository.findByUserId(userId);
+    }
+
+    public List<Schedule> selectByMonth(String date){
+        return scheduleRepository.selectByMonth(date);
     }
 }
