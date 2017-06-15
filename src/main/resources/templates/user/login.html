@@ -4,27 +4,32 @@
     <title>Login</title>
 </head>
 
-<body onload='document.f.username.focus();'>
-<div id="loginForm">
-    <h3>Login With Username and Password</h3>
-    <div class="error" th:if="${param.error}">
-        Incorrect username or password
-    </div>
-        <form name='f' th:action="@{/user/login}" method='post'>
-        <table>
-            <tr>
-                <td>Id:</td>
-                <td><input type='text' name='userId' value=''/></td>
-            </tr>
-            <tr>
-            <td>Password:</td>
-            <td><input type='password' name='password'/></td>
-        </tr>
-        <tr>
-            <td colspan='2'><input name="submit" type="submit" value="Login"/></td>
-        </tr>
-         </table>
+<body>
+<link rel="stylesheet" href="/login.css"/>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
+<script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+<script src="/login.js"></script>
+<!-- LOGIN FORM -->
+<div class="container">
+
+    <form class="form-signin" name='f' th:action="@{/user/login}" method='post'>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="id" id="inputEmail" name='userId' class="form-control" placeholder="Email address"/>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" name='password' class="form-control" placeholder="Password"/>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me</input>
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     </form>
-</div>
+
+</div> <!-- /container -->
+
+
 </body>
 </html>

@@ -30,11 +30,6 @@
             }
             /*]]>*/
             $('#calendar').Calendar({ 'events': eventFunc, 'weekStart': 1 })
-                .on('changeDay', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
-                .on('onEvent', function(event){ alert(event.day.valueOf() +'-'+ event.month.valueOf() +'-'+ event.year.valueOf() ); })
-                .on('onNext', function(event){ alert("다음 달로 이동"); })
-                .on('onPrev', function(event){ alert("이전 달로 이동"); })
-                .on('onCurrent', function(event){ alert("Current"); });
         });
 
         $(document).on("click", "#makeModal", function () {
@@ -45,12 +40,39 @@
             console.log(date);
         });
 
-        $('#addSchedule').on('click', function () {
-            var dateText = click_date;
+
+        $(document).on('click', '#addSchedule', function () {
+            var addEvent = function(date, content){
+                var scheduleData = '{"date":"'+date+'", "content:"'+content+'"}';
+                console.log(scheduleData);
+                $.ajax({
+                    url: "/schedule/add",
+                    dataType: 'json',
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data : scheduleData,
+                    timeout:60000,
+                    async: false,
+
+                }).done(function(json) {
+                    if(!json.success) {
+                        $.error(json.error);
+                        console.log("failed : " + scheduleData);
+                    }else{
+                        console.log("success : " + scheduleData);
+                    }
+                    if(json.result) {
+                        events = json.result;
+                    }
+                });
+            }
+
+            var date = click_date;
             var content = $('#scheduleContent').text();
-            this.addEvent(date, content);
+            addEvent(date, content);
             console.log("add Event");
-        })
+        });
+
 
     </script>
 </head>

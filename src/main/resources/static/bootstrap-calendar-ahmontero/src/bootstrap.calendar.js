@@ -13,7 +13,7 @@ click_date = null;
 // the semi-colon before the function invocation is a safety
 // net against concatenated scripts and/or other plugins
 // that are not closed properly.
-;(function ( $, window, document, undefined ) {
+(function ( $, window, document, undefined ) {
 
     // undefined is used here as the undefined global
     // variable in ECMAScript 3 and is mutable (i.e. it can
@@ -109,11 +109,10 @@ click_date = null;
         }
 
 
-        console.log("today");
         click_date = now;
         console.log(now);
         this.renderCalendar(now);
-        this.renderSchedule(now.getDate(), now.getMonth(), now.getFullYear(),  this.events.apply(this, []));
+        this.renderSchedule(now.getDate(), now.getMonth()+1, now.getFullYear(),  this.events.apply(this, []));
     };
 
     Plugin.prototype.renderEvents = function (events, elem) {
@@ -145,16 +144,15 @@ click_date = null;
     Plugin.prototype.renderSchedule = function(day, month, year, events){
         $('#scheduleHeader').empty();
         $('#scheduleHeader').append(
-            '<h1>'+(month+1)+'월 '+day +'일 일정 <small>Schedule</small></h1>'
+            '<h1>'+(month)+'월 '+day +'일 일정 <small>Schedule</small></h1>'
         )
 
         $('#scheduleList').empty();
         var hasEvent = false;
         $.each(events.event, function(){
-            console.log("year : "+year + ", month : "+month +", day : "+day )
             var event_date = new Date(this.date);
 
-            if( event_date.getDate() === day
+            if( event_date.getDate() === day && event_date.getMonth() === month-1
             ){
                 hasEvent = true;
                 $('#scheduleList').append('<div class="panel panel-default">'
@@ -179,30 +177,6 @@ click_date = null;
         }
     };
 
-    Plugin.prototype.addEvent = function(date, content){
-        var scheduleData = '{"date":"'+date+'", "content:"'+content+'"}';
-        console.log(scheduleData);
-        $.ajax({
-            url: "/schedule/add",
-            dataType: 'json',
-            type: 'POST',
-            contentType: "application/json; charset=UTF-8",
-            data : scheduleData,
-            timeout:60000,
-            async: false,
-
-        }).done(function(json) {
-            if(!json.success) {
-                $.error(json.error);
-                console.log("failed : " + scheduleData);
-            }else{
-                console.log("success : " + scheduleData);
-            }
-            if(json.result) {
-                events = json.result;
-            }
-        });
-    }
 
 
     Plugin.prototype.renderCalendar = function (date) {
@@ -324,9 +298,8 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-                            console.log("day");
                             click_date = new Date(day, month, year, 0,0,0,0);
-                            console.log(click_date);
+                            this.renderSchedule(day,month, year, this.events.apply(this, []));
                         }else if(target.is('.holiday')){
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
@@ -350,8 +323,6 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-
-                            console.log("today");
                             click_date = new Date(day, month, year, 0,0,0,0);
                             this.renderSchedule(day,month, year, this.events.apply(this, []));
             }
