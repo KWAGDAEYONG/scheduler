@@ -2,9 +2,8 @@ package com.example.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.jws.soap.SOAPBinding;
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * Created by user on 2017-05-11.
@@ -18,14 +17,11 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_user"))
-    @JsonProperty
     private User userId;
 
-    private int month;
+    private Date date;
 
-    private String date;
-
-    private String time;
+    private int time;
 
     private String content;
 
@@ -37,16 +33,16 @@ public class Schedule {
         this.userId = userId;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setTime(int time) {
+        this.time = time;
     }
 
     public Long getId() {
@@ -57,24 +53,16 @@ public class Schedule {
         return userId;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
-    }
-
-    public String getTime() {
-        return time;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setMonth(String date) {
-        this.month = Integer.parseInt(this.date.substring(5,7));
-    }
-
-    public int getMonth() {
-        return month;
+    public int getTime() {
+        return time;
     }
 
     @Override
@@ -83,7 +71,6 @@ public class Schedule {
                 "id=" + id +
                 ", userId=" + userId +
                 ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

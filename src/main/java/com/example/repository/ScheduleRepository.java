@@ -9,7 +9,6 @@ import java.util.List;
 /**
  * Created by user on 2017-05-11.
  */
-public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
-    List<Schedule> findByMonth(int month);
+public interface ScheduleRepository extends JpaRepository<Schedule, Long>, ScheduleRepositoryQueryDsl{
     List<Schedule> findByUserId(User userId);
 }
