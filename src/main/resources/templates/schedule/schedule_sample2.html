@@ -42,9 +42,11 @@
 
 
         $(document).on('click', '#addSchedule', function () {
+
+            var date = click_date;
+            var content = $('#scheduleContent').text();
             var addEvent = function(date, content){
-                var scheduleData = '{"date":"'+date+'", "content:"'+content+'"}';
-                console.log(scheduleData);
+                var scheduleData = '{"date":"'+date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()+'", "content":"'+content+'"}';
                 $.ajax({
                     url: "/schedule/add",
                     dataType: 'json',
@@ -55,22 +57,10 @@
                     async: false,
 
                 }).done(function(json) {
-                    if(!json.success) {
-                        $.error(json.error);
-                        console.log("failed : " + scheduleData);
-                    }else{
-                        console.log("success : " + scheduleData);
-                    }
-                    if(json.result) {
-                        events = json.result;
-                    }
+                    console.log("Add schedule data : "+scheduleData);
                 });
             }
-
-            var date = click_date;
-            var content = $('#scheduleContent').text();
             addEvent(date, content);
-            console.log("add Event");
         });
 
 

@@ -110,7 +110,6 @@ click_date = null;
 
 
         click_date = now;
-        console.log(now);
         this.renderCalendar(now);
         this.renderSchedule(now.getDate(), now.getMonth()+1, now.getFullYear(),  this.events.apply(this, []));
     };
@@ -375,7 +374,7 @@ click_date = null;
         $.ajax({
             type:"GET",
             url : "/schedule/prevOrNext",
-            data : {date : date.getFullYear()+'-'+date.getMonth()},
+            data : {date : date.getFullYear()+'-'+(date.getMonth()+1)},
             success : function(data) {
                 this.events = function () {
                     return {
