@@ -113,6 +113,7 @@ click_date = null;
         click_date = now;
         console.log(now);
         this.renderCalendar(now);
+        this.renderSchedule(now.getDate(), now.getMonth(), now.getFullYear(),  this.events.apply(this, []));
     };
 
     Plugin.prototype.renderEvents = function (events, elem) {
@@ -144,22 +145,29 @@ click_date = null;
     Plugin.prototype.renderSchedule = function(day, month, year, events){
         $('#scheduleHeader').empty();
         $('#scheduleHeader').append(
-            '<h1>'+month+'월 '+day +'일 일정 <small>Schedule</small></h1>'
+            '<h1>'+(month+1)+'월 '+day +'일 일정 <small>Schedule</small></h1>'
         )
 
         $('#scheduleList').empty();
+        var hasEvent = false;
         $.each(events.event, function(){
-            console.log("year : "+year + ", month : "+month +", day : "+day)
+            console.log("year : "+year + ", month : "+month +", day : "+day )
             var event_date = new Date(this.date);
+
             if( event_date.getDate() === day
             ){
-
+                hasEvent = true;
                 $('#scheduleList').append('<div class="panel panel-default">'
                     +'<div class="panel-heading"> 날짜 : <span>'+this.date+'</span>'
                     + ' 시간 : <span>' + this.time
                     + '</span></div><div class="panel-body">'+this.content+'</div></div>');
             }
         });
+        
+        // 이벤트가 없을 경우
+        if(!hasEvent){
+            $('#scheduleList').append('<div>일정이 없습니다</div>');
+        }
 
     };
 
@@ -345,6 +353,7 @@ click_date = null;
 
                             console.log("today");
                             click_date = new Date(day, month, year, 0,0,0,0);
+                            this.renderSchedule(day,month, year, this.events.apply(this, []));
             }
                         break;
                     case 'th':
@@ -395,7 +404,7 @@ click_date = null;
         $.ajax({
             type:"GET",
             url : "/schedule/prevOrNext",
-            data : {month : date.getMonth()},
+            data : {date : date.getFullYear()+'-'+date.getMonth()},
             success : function(data) {
                 this.events = function () {
                     return {
