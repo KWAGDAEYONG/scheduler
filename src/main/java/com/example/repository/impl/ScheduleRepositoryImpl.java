@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -16,8 +17,6 @@ import java.util.List;
 @Service
 public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements ScheduleRepositoryQueryDsl {
     private final String START = "01";
-    private final String END = "31";
-
     public ScheduleRepositoryImpl(){
         super(Schedule.class);
     }
@@ -28,7 +27,18 @@ public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements
         QSchedule qSchedule = QSchedule.schedule;
         Date startDate = Date.valueOf(date+"-"+START);
         System.out.println(startDate);
-        Date endDate = Date.valueOf(date+"-"+END);
+        Calendar calendar = Calendar.getInstance();
+
+        String tempDate[] = date.split("-");
+
+        int year = Integer.parseInt(tempDate[0]);
+        int month = Integer.parseInt(tempDate[1]);
+
+        calendar.set(year, month-1, 1);
+
+        String end = String.valueOf(calendar.getActualMaximum(Calendar.DATE));
+
+        Date endDate = Date.valueOf(date+"-"+end);
         System.out.println(endDate);
         return from(qSchedule)
                 .where(qSchedule.date.between(startDate,endDate))
