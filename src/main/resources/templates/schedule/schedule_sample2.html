@@ -42,15 +42,24 @@
             console.log(date);
         });
 
+        $('#createModal').on('hidden.bs.modal', function (e) {
+            $(this)
+                .find("input,textarea,select")
+                .val('').end();
+        })
+
 
         $(document).on('click', '#addSchedule', function () {
 
             var date = click_date;
+            var content = $('#scheduleContent').val();
             var title = $('#scheduleTitle').val();
             var now = new Date();
+            var event_month = date.getMonth()+1;
+            var minute = now.getMinutes() > 10 ? now.getMinutes() : "0" + now.getMinutes();
             var time = now.getHours()+ "" + now.getMinutes();
-            var addEvent = function(date, content){
-                var scheduleData = '{"date":"'+date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()+'", "content":"'+content+'", "title":"'+title+'"}';
+            var addEvent = function(date){
+                var scheduleData = '{"date":"'+date.getFullYear() + '-' + event_month + '-' + date.getDate()+'", "time":"'+time+'", "content":"'+content+'", "title":"'+title+'"}';
                 $.ajax({
                     url: "/schedule/add",
                     dataType: 'json',
@@ -61,7 +70,8 @@
                     async: false,
 
                 }).done(function(json) {
-                    console.log("Add schedule data : "+scheduleData);
+                    console.log(json);
+                    $('#calendar').Calendar({ 'events': json, 'weekStart': 1 });
                 });
             }
             addEvent(date);

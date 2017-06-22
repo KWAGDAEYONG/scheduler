@@ -155,7 +155,7 @@ var click_date = null;
             ){
                 var event_month = (event_date.getMonth()+1);
                 var hour = this.time.substring(0,2);
-                var minute = this.time.substring(2,4);
+                var minute = ""+this.time.substring(2,4);
                 hasEvent = true;
                 $('#scheduleList').append('<div class="panel panel-default">'
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;<div class="text-right">'+ hour + ":" + minute
