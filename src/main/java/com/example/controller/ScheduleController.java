@@ -12,6 +12,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 /**
  * Created by user on 2017-05-12.
@@ -27,10 +28,10 @@ public class ScheduleController {
     public String add(@RequestBody Schedule schedule, HttpSession httpSession){
         User user = (User)httpSession.getAttribute("loginUser");
         schedule.setUserId(user);
-        Schedule addSchedule = scheduleService.add(schedule);
-        String scheduleToJson = JsonConverter.scheduleToJson(addSchedule);
-        System.out.println(scheduleToJson);
-        return scheduleToJson;
+        String date = scheduleService.add(schedule).getDate().toString();
+        String schedulesToJson = JsonConverter.schedulesToJson(scheduleService.selectByMonth(date.substring(0,7)));
+        System.out.println(schedulesToJson);
+        return schedulesToJson;
     }
 
     @GetMapping("/prevOrNext")
