@@ -2,20 +2,24 @@
 <html>
 <head>
     <title>Login</title>
+
+    <link rel="stylesheet" href="/login.css"/>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
+    <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
+    <script src="/login.js"></script>
 </head>
 
 <body>
-<link rel="stylesheet" href="/login.css"/>
-<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
-<link href='http://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'/>
-<script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.13.1/jquery.validate.min.js"></script>
-<script src="/login.js"></script>
 <!-- LOGIN FORM -->
 <div class="container">
 
     <form class="form-signin" name='f' th:action="@{/user/login}" method='post'>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading">Welcome Calender App</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="id" id="inputEmail" name='userId' class="form-control" placeholder="Email address"/>
         <label for="inputPassword" class="sr-only">Password</label>

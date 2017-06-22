@@ -8,7 +8,7 @@
  * Further changes, comments: @addyosmani
  * Licensed under the MIT license
  */
-click_date = null;
+var click_date = null;
 
 // the semi-colon before the function invocation is a safety
 // net against concatenated scripts and/or other plugins
@@ -153,11 +153,13 @@ click_date = null;
 
             if( event_date.getDate() === day && event_date.getMonth() === month-1
             ){
+                var event_month = (event_date.getMonth()+1);
+                var hour = this.time.substring(0,2);
+                var minute = this.time.substring(2,4);
                 hasEvent = true;
                 $('#scheduleList').append('<div class="panel panel-default">'
-                    +'<div class="panel-heading"> 날짜 : <span>'+this.date+'</span>'
-                    + ' 시간 : <span>' + this.time
-                    + '</span></div><div class="panel-body">'+this.content+'</div></div>');
+                    +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;<div class="text-right">'+ hour + ":" + minute
+                    + '</div></div><div class="panel-body">'+this.content+'</div></div>');
             }
         });
         
@@ -297,7 +299,7 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-                            click_date = new Date(day, month, year, 0,0,0,0);
+                            click_date = new Date(year, month-1, day, 0,0,0,0);
                             this.renderSchedule(day,month, year, this.events.apply(this, []));
                         }else if(target.is('.holiday')){
                             day = parseInt(target.attr('day'), 10)||1;
@@ -310,7 +312,7 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-                            click_date = new Date(day, month, year, 0,0,0,0);
+                            click_date = new Date(year, month-1 ,day,  0,0,0,0);
                             this.renderSchedule(day,month, year, this.events.apply(this, []));
                         }else if(target.is('.today')){
                             day = parseInt(target.attr('day'), 10)||1;
@@ -322,7 +324,7 @@ click_date = null;
                                 month: month,
                                 year: year
                             });
-                            click_date = new Date(day, month, year, 0,0,0,0);
+                            click_date = new Date(year, month-1, day, 0,0,0,0);
                             this.renderSchedule(day,month, year, this.events.apply(this, []));
             }
                         break;
