@@ -23,10 +23,8 @@ public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements
 
     @Override
     public List<Schedule> selectByMonth(String date){
-        System.out.println(date);
         QSchedule qSchedule = QSchedule.schedule;
         Date startDate = Date.valueOf(date+"-"+START);
-        System.out.println(startDate);
         Calendar calendar = Calendar.getInstance();
 
         String tempDate[] = date.split("-");
@@ -39,7 +37,7 @@ public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements
         String end = String.valueOf(calendar.getActualMaximum(Calendar.DATE));
 
         Date endDate = Date.valueOf(date+"-"+end);
-        System.out.println(endDate);
+
         return from(qSchedule)
                 .where(qSchedule.date.between(startDate,endDate))
                 .fetch();
