@@ -2,7 +2,6 @@ package com.example.repository;
 
 import com.example.model.Schedule;
 
-import java.sql.Date;
 import java.util.List;
 
 /**

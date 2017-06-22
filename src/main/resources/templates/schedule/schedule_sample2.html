@@ -44,7 +44,7 @@
         $(document).on('click', '#addSchedule', function () {
 
             var date = click_date;
-            var content = $('#scheduleContent').text();
+            var content = $('#scheduleContent').val();
             var addEvent = function(date, content){
                 var scheduleData = '{"date":"'+date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()+'", "content":"'+content+'"}';
                 $.ajax({

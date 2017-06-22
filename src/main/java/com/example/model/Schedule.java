@@ -11,6 +11,7 @@ import java.sql.Date;
 @Entity
 public class Schedule {
 
+
     @Id
     @GeneratedValue
     private Long id;
@@ -19,11 +20,31 @@ public class Schedule {
     @JoinColumn(foreignKey = @ForeignKey(name = "fk_schedule_user"))
     private User userId;
 
+    private String title;
+
     private Date date;
 
     private int time;
 
     private String content;
+
+    public Schedule(){
+    }
+
+    public Schedule(User userId, Date date, int time, String content){
+        this.userId = userId;
+        this.date = date;
+        this.time = time;
+        this.content = content;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
 
     public void setId(Long id) {
         this.id = id;
