@@ -41,10 +41,4 @@ public class ScheduleController {
         return test;
     }
 
-    @GetMapping("/selectOneDay")
-    public String selectOneDay(String date){
-        Date day = Date.valueOf(date);
-        String test = JsonConverter.schedulesToJson(scheduleService.selectByOneDay(day));
-        return test;
-    }
 }
