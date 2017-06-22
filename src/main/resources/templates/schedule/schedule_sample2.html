@@ -68,11 +68,21 @@
                     data : scheduleData,
                     timeout:60000,
                     async: false,
+                    success : function(data) {
+                        var eventFuncAdd = function(){
+                            return {
+                                "event" : JSON.stringify(data)
+                            }
+                        }
 
-                }).done(function(json) {
-                    console.log(json);
-                    $('#calendar').Calendar({ 'events': json, 'weekStart': 1 });
-                });
+                        console.log(JSON.stringify(data));
+                        location.reload(); // then reload the page.(3)
+                        console.log("reload");
+                        if(data.success == true){
+
+                        }
+                    }
+                })
             }
             addEvent(date);
         });
