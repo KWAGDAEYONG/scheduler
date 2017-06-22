@@ -27,7 +27,5 @@ public class ScheduleService {
     public List<Schedule> selectByMonth(String date){
         return scheduleRepository.selectByMonth(date);
     }
-    public List<Schedule> selectByOneDay(Date date){
-        return scheduleRepository.findByDate(date);
-    }
+
 }
