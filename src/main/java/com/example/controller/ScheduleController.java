@@ -22,22 +22,28 @@ public class ScheduleController {
 
     @Autowired
     ScheduleService scheduleService;
-    @Autowired
-    UserService userService;
 
     @PostMapping("/add")
     public String add(@RequestBody Schedule schedule, HttpSession httpSession){
         User user = (User)httpSession.getAttribute("loginUser");
-        Schedule addSchedule = schedule;
-        addSchedule.setUserId(user);
-        String test = JsonConverter.scheduleToJson(scheduleService.add(addSchedule));
-        System.out.println(test);
-        return test;
+        schedule.setUserId(user);
+        Schedule addSchedule = scheduleService.add(schedule);
+        String scheduleToJson = JsonConverter.scheduleToJson(addSchedule);
+        System.out.println(scheduleToJson);
+        return scheduleToJson;
     }
 
     @GetMapping("/prevOrNext")
     public String prevOrNext(String date){
         String test = JsonConverter.schedulesToJson(scheduleService.selectByMonth(date));
+        System.out.println(test);
+        return test;
+    }
+
+    @GetMapping("/selectOneDay")
+    public String selectOneDay(String date){
+        Date day = Date.valueOf(date);
+        String test = JsonConverter.schedulesToJson(scheduleService.selectByOneDay(day));
         return test;
     }
 }

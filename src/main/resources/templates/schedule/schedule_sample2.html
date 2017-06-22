@@ -46,11 +46,9 @@
         $(document).on('click', '#addSchedule', function () {
 
             var date = click_date;
-            var content = $('#scheduleContent').val();
             var title = $('#scheduleTitle').val();
             var now = new Date();
             var time = now.getHours()+ "" + now.getMinutes();
-            console.log("time : "+time);
             var addEvent = function(date, content){
                 var scheduleData = '{"date":"'+date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate()+'", "content":"'+content+'", "title":"'+title+'"}';
                 $.ajax({

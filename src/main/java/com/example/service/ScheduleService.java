@@ -6,6 +6,7 @@ import com.example.repository.ScheduleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -25,5 +26,8 @@ public class ScheduleService {
 
     public List<Schedule> selectByMonth(String date){
         return scheduleRepository.selectByMonth(date);
+    }
+    public List<Schedule> selectByOneDay(Date date){
+        return scheduleRepository.findByDate(date);
     }
 }

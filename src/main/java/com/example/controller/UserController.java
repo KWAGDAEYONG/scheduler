@@ -62,4 +62,13 @@ public class UserController {
 
         return "/schedule/schedule_sample2";
     }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession httpSession){
+        if(httpSession!=null) {
+            httpSession.removeAttribute("loginUser");
+            log.debug("로그아웃 성공, 세션값 제거합니다.");
+        }
+        return "/index";
+    }
 }

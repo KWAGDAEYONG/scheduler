@@ -13,7 +13,7 @@ public class JsonConverter {
         String result = "[";
 
         for(int i = 0; i<schedules.size(); i++){
-            result+="{"+'"'+"date"+'"'+":"+'"'+schedules.get(i).getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedules.get(i).getTime()+'"'
+            result+="{"+'"'+"title"+'"'+":"+'"'+schedules.get(i).getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedules.get(i).getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedules.get(i).getTime()+'"'
                     +","+'"'+"content"+'"'+":"+'"'+schedules.get(i).getContent()+'"'+"}";
             if(i!=schedules.size()-1){
                 result+=",";
@@ -24,6 +24,6 @@ public class JsonConverter {
     }
 
     public static String scheduleToJson(Schedule schedule){
-        return "{"+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
+        return "{"+'"'+"title"+'"'+":"+'"'+schedule.getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
     }
 }
