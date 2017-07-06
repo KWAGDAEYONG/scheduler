@@ -23,9 +23,20 @@ public class ScheduleService {
     public List<Schedule> selectByUser(User userId){
         return scheduleRepository.findByUserId(userId);
     }
-
     public List<Schedule> selectByMonth(String date){
         return scheduleRepository.selectByMonth(date);
     }
+    public List<Schedule> selectByScheduleMonth(Schedule schedule){
+        String date = schedule.getDate().toString();
+        return scheduleRepository.selectByMonth(date.substring(0,7));
+    }
 
+    public Schedule remove(Long id){
+        Schedule schedule = scheduleRepository.findOne(id);
+        scheduleRepository.delete(id);
+        return schedule;
+    }
+    public Schedule selectOneById(Long id){
+        return scheduleRepository.findOne(id);
+    }
 }

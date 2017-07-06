@@ -12,4 +12,5 @@ import java.util.List;
  */
 public interface ScheduleRepository extends JpaRepository<Schedule, Long>, ScheduleRepositoryQueryDsl{
     List<Schedule> findByUserId(User userId);
+
 }
