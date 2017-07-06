@@ -160,7 +160,7 @@ var click_date = null;
         var hasEvent = false;
         $.each(events.event, function(){
             var event_date = new Date(this.date);
-
+            var list_num = 0;
             if( event_date.getDate() === day && event_date.getMonth() === month-1
             ){
                 var event_month = (event_date.getMonth()+1);
@@ -169,15 +169,22 @@ var click_date = null;
                 if(minute<10){
                     minute = "0"+minute;
                 }
+                list_num += 1;
                 hasEvent = true;
+                var schedule_id = "schedule-id-"+list_num;
                 $('#scheduleList').append('<div class="panel panel-default">'
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
                     + '<button type="button" class="pull-right btn btn-default btn-sm">'
+                    + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm">'
                     + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
-                    + '<div class="text-right">'
-                    + hour + ":" + minute + '</div>'
+                    + '<div class="pull-right">'
+                    + hour + ":" + minute + '&nbsp&nbsp</div>'
+                    + '<div id="#'+schedule_id+'">'+this.id+'sc</div>'
                     + '</div><div class="panel-body">'+this.content+'</div></div>');
 
+                console.log(schedule_id);
+                $("div[id='#"+schedule_id+"']").hide();
             }
         });
         
