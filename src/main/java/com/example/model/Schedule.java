@@ -1,6 +1,5 @@
 package com.example.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -84,6 +83,13 @@ public class Schedule {
 
     public int getTime() {
         return time;
+    }
+
+    public void update(Schedule schedule){
+        this.title = schedule.title;
+        this.content = schedule.content;
+        this.date = schedule.date;
+        this.time = schedule.time;
     }
 
     @Override
