@@ -10,20 +10,25 @@ import java.util.List;
 
 public class JsonConverter {
     public static String schedulesToJson(List<Schedule> schedules){
+        if(schedules==null){
+            return "";
+        }
         String result = "[";
-
         for(int i = 0; i<schedules.size(); i++){
-            result+="{"+'"'+"title"+'"'+":"+'"'+schedules.get(i).getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedules.get(i).getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedules.get(i).getTime()+'"'
+            result+="{"+'"'+"id"+'"'+":"+'"'+schedules.get(i).getId()+'"'+","+'"'+"title"+'"'+":"+'"'+schedules.get(i).getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedules.get(i).getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedules.get(i).getTime()+'"'
                     +","+'"'+"content"+'"'+":"+'"'+schedules.get(i).getContent()+'"'+"}";
             if(i!=schedules.size()-1){
                 result+=",";
             }
         }
         result += "]";
+        System.out.println("Converter:"+result);
         return result;
     }
 
     public static String scheduleToJson(Schedule schedule){
-        return "{"+'"'+"title"+'"'+":"+'"'+schedule.getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
+        String result = "{"+'"'+"id"+'"'+":"+'"'+schedule.getId()+'"'+","+'"'+"title"+'"'+":"+'"'+schedule.getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
+        System.out.println("Converter:"+result);
+        return  result;
     }
 }

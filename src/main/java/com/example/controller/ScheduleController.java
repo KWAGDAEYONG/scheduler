@@ -22,32 +22,25 @@ public class ScheduleController {
     public String add(@RequestBody Schedule schedule, HttpSession httpSession){
         User user = (User)httpSession.getAttribute("loginUser");
         schedule.setUserId(user);
-        String schedulesToJson = JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.add(schedule)));
-        System.out.println(schedulesToJson);
-        return schedulesToJson;
+        return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.add(schedule)));
     }
 
     @PostMapping("/remove")
     public String remove(Long id){
-        String schedulesToJson = JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.remove(id)));
-        System.out.println(schedulesToJson);
-        return schedulesToJson;
+        return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.remove(id)));
     }
 
     @PostMapping("/modify")
     public String modify(@RequestBody Schedule schedule, Long id){
         Schedule dbSchedule = scheduleService.selectOneById(id);
         dbSchedule.update(schedule);
-        String schedulesToJson = JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.add(dbSchedule)));
-        System.out.println(schedulesToJson);
-        return schedulesToJson;
+        return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.add(dbSchedule)));
     }
 
     @GetMapping("/prevOrNext")
     public String prevOrNext(String date){
-        String test = JsonConverter.schedulesToJson(scheduleService.selectByMonth(date));
-        System.out.println(test);
-        return test;
+
+        return JsonConverter.schedulesToJson(scheduleService.selectByMonth(date));
     }
 
 }
