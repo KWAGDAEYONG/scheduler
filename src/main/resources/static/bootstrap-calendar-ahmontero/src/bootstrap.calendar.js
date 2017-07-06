@@ -59,7 +59,7 @@ var click_date = null;
         today = new Date();
 
     // The actual plugin constructor
-    function Plugin( element, options ) {
+    function Plugin( element, options , year, month, date ) {
         this.element = $(element);
 
         // jQuery has an extend method that merges the
@@ -68,9 +68,13 @@ var click_date = null;
         // is generally empty because we don't want to alter
         // the default options for future instances of the plugin
         this.options = $.extend( {}, defaults, options) ;
-
+        if(date === undefined)
+            this.initialDate = new Date();
+        else
+            this.initialDate = new Date(year,month, date);
         this._defaults = defaults;
         this._name = pluginName;
+
 
         this.init();
     }
@@ -93,7 +97,13 @@ var click_date = null;
 
         this.live_date = new Date();
 
-        var now = new Date();
+        var now = this.initialDate;
+        console.log("year : "+ now.getFullYear() + "month : "+ now.getMonth() + "date : "+ now.getDate());
+        if(this.initialDate === null){
+            now = new Date();
+        }else{
+            now = this.initialDate;
+        }
         this.mm = now.getMonth();
         this.yy = now.getFullYear();
 
@@ -155,11 +165,19 @@ var click_date = null;
             ){
                 var event_month = (event_date.getMonth()+1);
                 var hour = this.time.substring(0,2);
-                var minute = ""+this.time.substring(2,4);
+                var minute = this.time.substring(2,4);
+                if(minute<10){
+                    minute = "0"+minute;
+                }
                 hasEvent = true;
                 $('#scheduleList').append('<div class="panel panel-default">'
-                    +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;<div class="text-right">'+ hour + ":" + minute
-                    + '</div></div><div class="panel-body">'+this.content+'</div></div>');
+                    +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm">'
+                    + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
+                    + '<div class="text-right">'
+                    + hour + ":" + minute + '</div>'
+                    + '</div><div class="panel-body">'+this.content+'</div></div>');
+
             }
         });
         
@@ -418,13 +436,12 @@ var click_date = null;
 
     // A really lightweight plugin wrapper around the constructor,
     // preventing against multiple instantiations
-    $.fn[pluginName] = function ( options ) {
+    $.fn[pluginName] = function ( options, year, month, date ) {
         return this.each(function () {
-            if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName,
-                new Plugin( this, options ));
-            }
+             $.data(this, 'plugin_' + pluginName,
+                new Plugin( this,options,  year, month, date ));
         });
     }
+
 
 })( jQuery, window, document );
