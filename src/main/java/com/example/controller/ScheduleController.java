@@ -26,7 +26,9 @@ public class ScheduleController {
     }
 
     @PostMapping("/remove")
-    public String remove(Long id){
+    public String remove(@RequestBody Schedule schedule){
+        Long id = schedule.getId();
+        System.out.println("*****"+id);
         return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.remove(id)));
     }
 
