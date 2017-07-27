@@ -51,12 +51,13 @@
         });
 
         var removeSchedule = function(id){
+            var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/remove",
                 dataType:'json',
                 type:'POST',
                 contentType: "application/json; charset=UTF-8",
-                data : id,
+                data : scheduleData,
                 timeout:60000,
                 async: false,
                 success : function(data) {

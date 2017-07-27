@@ -22,13 +22,11 @@ public class JsonConverter {
             }
         }
         result += "]";
-        System.out.println("Converter:"+result);
         return result;
     }
 
     public static String scheduleToJson(Schedule schedule){
         String result = "{"+'"'+"id"+'"'+":"+'"'+schedule.getId()+'"'+","+'"'+"title"+'"'+":"+'"'+schedule.getTitle()+'"'+","+'"'+"date"+'"'+":"+'"'+schedule.getDate()+'"'+","+'"'+"time"+'"'+":"+'"'+schedule.getTime()+'"'+","+'"'+"content"+'"'+":"+'"'+schedule.getContent()+'"'+"}";
-        System.out.println("Converter:"+result);
         return  result;
     }
 }
