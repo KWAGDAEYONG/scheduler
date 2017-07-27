@@ -124,6 +124,7 @@ var click_date = null;
         this.renderSchedule(now.getDate(), now.getMonth()+1, now.getFullYear(),  this.events.apply(this, []));
     };
 
+
     Plugin.prototype.renderEvents = function (events, elem) {
         var live_date = this.live_date;
         var msg_evnts_hdr = this.msg_events_hdr;
@@ -171,20 +172,21 @@ var click_date = null;
                 }
                 list_num += 1;
                 hasEvent = true;
-                var schedule_id = "schedule-id-"+list_num;
+                var schedule_id = this.id;
+
                 $('#scheduleList').append('<div class="panel panel-default">'
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
-                    + '<button type="button" class="pull-right btn btn-default btn-sm">'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="removeSchedule('+this.id+')">'
                     + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
                     + '<button type="button" class="pull-right btn btn-default btn-sm">'
                     + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
                     + '<div class="pull-right">'
                     + hour + ":" + minute + '&nbsp&nbsp</div>'
-                    + '<div id="#'+schedule_id+'">'+this.id+'sc</div>'
+                    + '<div id="id">'+this.id+'</div>'
                     + '</div><div class="panel-body">'+this.content+'</div></div>');
 
                 console.log(schedule_id);
-                $("div[id='#"+schedule_id+"']").hide();
+                $("div[id='id']").hide();
             }
         });
         
@@ -396,6 +398,8 @@ var click_date = null;
                 }
             }
     };
+
+
 
     Plugin.prototype.requestEvents = function(date){
         $.ajax({

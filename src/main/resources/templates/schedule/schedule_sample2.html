@@ -48,14 +48,32 @@
             $(this)
                 .find("input,textarea,select")
                 .val('').end();
-        })
-
-        $(document).on('click', '#removeSchedule', function(){
-            var removeEvent = function(id){
-
-            }
         });
 
+        var removeSchedule = function(id){
+            $.ajax({
+                url : "/schedule/remove",
+                dataType:'json',
+                type:'POST',
+                contentType: "application/json; charset=UTF-8",
+                data : id,
+                timeout:60000,
+                async: false,
+                success : function(data) {
+                    var eventFuncAdd = function(){
+                        return {
+                            "event" : data
+                        }
+                    }
+                    $('#calendar').empty();
+                    console.log(JSON.stringify(data));
+                    $('#calendar').Calendar({ 'events': eventFuncAdd, 'weekStart': 1 }, date.getFullYear(), date.getMonth(), date.getDate() );
+                    if(data.success == true){
+
+                    }
+                }
+            });
+        };
 
         $(document).on('click', '#addSchedule', function () {
 
