@@ -12,12 +12,13 @@
         }
     </style>
     <link rel="stylesheet" href="/bootstrap-calendar-ahmontero/src/css/bootstrap.calendar.css" type="text/css" />
-
+    <link rel="/webjars/bootstrap-datetimepicker/2.3.5/css/bootstrap-datetimepicker.css"/>
 
     <!-- jQuery and the Calendar plugin files -->
     <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.js" ></script>
     <script type="text/javascript" src="/webjars/bootstrap/3.3.7/js/bootstrap.js" ></script>
     <script type="text/javascript" src="/bootstrap-calendar-ahmontero/src/bootstrap.calendar.js" ></script>
+    <script type="text/javascript" src="/webjars/bootstrap-datetimepicker/2.3.5/js/bootstrap-datetimepicker.js"></script>
 
     <script type="text/javascript" th:inline="javascript">
         $(document).ready(function(){
@@ -51,12 +52,13 @@
         });
 
         var removeSchedule = function(id){
+            var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/remove",
                 dataType:'json',
                 type:'POST',
                 contentType: "application/json; charset=UTF-8",
-                data : id,
+                data : scheduleData,
                 timeout:60000,
                 async: false,
                 success : function(data) {
