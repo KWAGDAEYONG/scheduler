@@ -52,6 +52,7 @@
         });
 
         var removeSchedule = function(id){
+            var date = click_date;
             var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/remove",
