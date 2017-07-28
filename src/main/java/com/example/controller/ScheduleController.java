@@ -33,7 +33,8 @@ public class ScheduleController {
     }
 
     @PostMapping("/modify")
-    public String modify(@RequestBody Schedule schedule, Long id){
+    public String modify(@RequestBody Schedule schedule){
+        Long id = schedule.getId();
         Schedule dbSchedule = scheduleService.selectOneById(id);
         dbSchedule.update(schedule);
         return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.add(dbSchedule)));
@@ -41,7 +42,6 @@ public class ScheduleController {
 
     @GetMapping("/prevOrNext")
     public String prevOrNext(String date){
-
         return JsonConverter.schedulesToJson(scheduleService.selectByMonth(date));
     }
 
