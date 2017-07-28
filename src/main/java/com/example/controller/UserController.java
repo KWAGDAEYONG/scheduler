@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import com.example.model.Schedule;
-import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import com.example.model.User;
 import com.example.utility.JsonConverter;
@@ -14,12 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
