@@ -1,7 +1,5 @@
 package com.example.controller;
 
-import com.example.model.Schedule;
-import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import com.example.model.User;
 import com.example.utility.JsonConverter;
@@ -17,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -32,11 +28,6 @@ public class UserController {
 
     @Autowired
     UserService userService;
-
-    @GetMapping("/loginPage")
-    public String loginPage(){
-        return "/user/login";
-    }
 
     @PostMapping("/login")
     public String login(User user, HttpSession httpSession, RedirectAttributes rttr, Model model){
@@ -54,6 +45,7 @@ public class UserController {
             return "redirect:/user/loginPage";
         }
 
+
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
@@ -63,12 +55,12 @@ public class UserController {
         return "/schedule/schedule_sample2";
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public String logout(HttpSession httpSession){
         if(httpSession!=null) {
             httpSession.removeAttribute("loginUser");
             log.debug("로그아웃 성공, 세션값 제거합니다.");
         }
-        return "/index";
+        return "/user/login";
     }
 }
