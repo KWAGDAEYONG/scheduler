@@ -165,11 +165,7 @@ var click_date = null;
             if( event_date.getDate() === day && event_date.getMonth() === month-1
             ){
                 var event_month = (event_date.getMonth()+1);
-                var hour = this.time.substring(0,2);
-                var minute = this.time.substring(2,4);
-                if(minute<10){
-                    minute = "0"+minute;
-                }
+                var time = this.time;
                 list_num += 1;
                 hasEvent = true;
                 var schedule_id = this.id;
@@ -178,10 +174,10 @@ var click_date = null;
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
                     + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="removeSchedule('+this.id+')">'
                     + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
-                    + '<button type="button" class="pull-right btn btn-default btn-sm">'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="modifySchedule('+this.id+')">'
                     + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
                     + '<div class="pull-right">'
-                    + hour + ":" + minute + '&nbsp&nbsp</div>'
+                    + time + '&nbsp&nbsp</div>'
                     + '<div id="id">'+this.id+'</div>'
                     + '</div><div class="panel-body">'+this.content+'</div></div>');
 

@@ -51,8 +51,27 @@
                 .val('').end();
         });
 
+        var modifySchedule = function(id){
+            var scheduleData = '{"id":"'+id+'"}';
+            $.ajax({
+                url : "/schedule/modifyPage",
+                dataType : 'json',
+                type :'POST',
+                contentType: "application/json; charset=UTF-8",
+                data : scheduleData,
+                timeout:60000,
+                async: false,
+                success : function(data) {
+                    $('#createModal').find("#scheduleTitle").val(data.title);
+                    $('#createModal').find("#content").val(data.content);
+                    $('#createModal').find("#timepicker").val(data.time);
+                }
+            });
+
+        };
+
+
         var removeSchedule = function(id){
-            var date = click_date;
             var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/remove",
@@ -85,19 +104,10 @@
             var date = click_date;
             var content = $('#scheduleContent').val();
             var title = $('#scheduleTitle').val();
-            var picktime = $('#timepicker').val();
-            var hourStr = picktime.split(":");
-            var hour = hourStr[0];
-            if(hourStr[1].substring(hourStr.length-2, hourStr.length-1) == "PM"){
-                hour += 12;
-            }
-            //var minute = hourStr[1].subStr()
-
-            console.log("time now "+time);
+            var time = $('#timepicker').val();
+            console.log("time : "+time)
             var now = new Date();
             var event_month = date.getMonth()+1;
-            var minute = now.getMinutes() > 10 ? now.getMinutes() : "0" + now.getMinutes();
-            var time = now.getHours()+ "" + now.getMinutes();
             var addEvent = function(date){
                 var scheduleData = '{"date":"'+date.getFullYear() + '-' + event_month + '-' + date.getDate()+'", "time":"'+time+'", "content":"'+content+'", "title":"'+title+'"}';
                 $.ajax({
