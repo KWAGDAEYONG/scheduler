@@ -23,14 +23,14 @@ public class Schedule {
 
     private Date date;
 
-    private int time;
+    private String time;
 
     private String content;
 
     public Schedule(){
     }
 
-    public Schedule(User userId, Date date, int time, String content){
+    public Schedule(User userId, Date date, String time, String content){
         this.userId = userId;
         this.date = date;
         this.time = time;
@@ -61,8 +61,18 @@ public class Schedule {
         this.content = content;
     }
 
-    public void setTime(int time) {
-        this.time = time;
+    public void setTime(String time) {
+        String ex = "9:30 PM";
+        String temp[] = time.split(" ");
+        String hm[] = temp[0].split(":");
+        if(temp[1].equals("PM")){
+            hm[0] = String.valueOf(Integer.parseInt(hm[0])+12);
+        }
+        if(Integer.parseInt(hm[0])<10){
+            hm[0] = "0"+hm[0];
+        }
+
+        this.time = hm[0]+hm[1];
     }
 
     public Long getId() {
@@ -81,7 +91,7 @@ public class Schedule {
         return content;
     }
 
-    public int getTime() {
+    public String getTime() {
         return time;
     }
 
