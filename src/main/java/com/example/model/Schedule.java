@@ -62,7 +62,7 @@ public class Schedule {
     }
 
     public void setTime(String time) {
-        String ex = "9:30 PM";
+        /*String ex = "9:30 PM";
         String temp[] = time.split(" ");
         String hm[] = temp[0].split(":");
         if(temp[1].equals("PM")){
@@ -71,8 +71,8 @@ public class Schedule {
         if(Integer.parseInt(hm[0])<10){
             hm[0] = "0"+hm[0];
         }
-
-        this.time = hm[0]+hm[1];
+*/
+        this.time = time;
     }
 
     public Long getId() {
