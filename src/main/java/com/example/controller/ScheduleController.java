@@ -28,8 +28,14 @@ public class ScheduleController {
     @PostMapping("/remove")
     public String remove(@RequestBody Schedule schedule){
         Long id = schedule.getId();
-        System.out.println("*****"+id);
         return JsonConverter.schedulesToJson(scheduleService.selectByScheduleMonth(scheduleService.remove(id)));
+    }
+
+    @PostMapping("/modifyPage")
+    public String modifyPage(@RequestBody Schedule schedule){
+        Long id = schedule.getId();
+        Schedule dbSchedule = scheduleService.selectOneById(id);
+        return JsonConverter.scheduleToJson(dbSchedule);
     }
 
     @PostMapping("/modify")
