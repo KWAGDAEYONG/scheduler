@@ -1,5 +1,7 @@
 package com.example.controller;
 
+import com.example.model.Schedule;
+import com.example.service.ScheduleService;
 import com.example.service.UserService;
 import com.example.model.User;
 import com.example.utility.JsonConverter;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 /**
@@ -28,6 +32,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    ScheduleService scheduleService;
 
     @PostMapping("/login")
     public String login(User user, HttpSession httpSession, RedirectAttributes rttr, Model model){
@@ -49,10 +56,13 @@ public class UserController {
         httpSession.setAttribute("loginUser",dbUser);
         log.debug("로그인 성공, 세션값에 저장합니다.");
 
-        model.addAttribute("user",dbUser);
-        model.addAttribute("schedules",JsonConverter.schedulesToJson(dbUser.getSchedules()));
+        Date today = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
+        model.addAttribute("user",dbUser);
+        model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today))));
         return "/schedule/schedule_sample2";
+
     }
 
     @GetMapping("/logout")
