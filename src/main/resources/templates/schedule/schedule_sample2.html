@@ -35,7 +35,6 @@
 
         $(document).on("click", "#makeModal", function () {
             console.log("clicked");
-
             var date = click_date;
             console.log(date);
             $("#modalTitle").empty();
@@ -62,16 +61,16 @@
                 timeout:60000,
                 async: false,
                 success : function(data) {
+                    console.log("data : "+data.title);
                     $('#createModal').find("#scheduleTitle").val(data.title);
                     $('#createModal').find("#content").val(data.content);
                     $('#createModal').find("#timepicker").val(data.time);
                 }
             });
-
         };
 
-
         var removeSchedule = function(id){
+            var date = click_date;
             var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/remove",
