@@ -40,6 +40,8 @@
             $("#modalTitle").empty();
             $("#scheduleTitle").val('');
             $("#scheduleContent").val('');
+            $("#addSchedule").show();
+            $("#modifySchedule").hide();
             $("#modalTitle").append(date.getFullYear()+'년 '+(date.getMonth()+1)+'월 '+date.getDate()+'일 일정 추가');
             console.log(date);
         });
@@ -50,7 +52,15 @@
                 .val('').end();
         });
 
-        var modifySchedule = function(id){
+        $(document).on("click", "#modifyModal", function (data) {
+            console.log("clicked");
+            var date = click_date;
+            $("#addSchedule").hide();
+            $("#modifySchedule").show();
+            console.log(date);
+        });
+
+        var modifyPage = function(id){
             var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
                 url : "/schedule/modifyPage",
@@ -63,11 +73,50 @@
                 success : function(data) {
                     console.log("data : "+data.title);
                     $('#createModal').find("#scheduleTitle").val(data.title);
-                    $('#createModal').find("#content").val(data.content);
+                    $('#createModal').find("#scheduleContent").val(data.content);
                     $('#createModal').find("#timepicker").val(data.time);
                 }
             });
         };
+
+        $(document).on('click', '#modifySchedule', function () {
+            var date = click_date;
+            var content = $('#scheduleContent').val();
+            var title = $('#scheduleTitle').val();
+            var time = $('#timepicker').val();
+            var id = $('#id').val();
+            console.log("time : "+time)
+            var now = new Date();
+            var event_month = date.getMonth()+1;
+            var modifyEvent = function(date){
+                var scheduleData = '{"id" :'+id+'"date":"'+date.getFullYear() + '-' + event_month + '-' + date.getDate()+'", "time":"'+time+'", "content":"'+content+'", "title":"'+title+'"}';
+                $.ajax({
+                    url: "/schedule/modify",
+                    dataType: 'json',
+                    type: 'POST',
+                    contentType: "application/json; charset=UTF-8",
+                    data : scheduleData,
+                    timeout:60000,
+                    async: false,
+                    success : function(data) {
+                        var eventFuncAdd = function(){
+                            return {
+                                "event" : data
+                            }
+                        }
+
+                        $('#calendar').empty();
+                        console.log(JSON.stringify(data));
+                        $('#calendar').Calendar({ 'events': eventFuncAdd, 'weekStart': 1 }, date.getFullYear(), date.getMonth(), date.getDate() );
+                        if(data.success == true){
+
+                        }
+                    }
+                })
+            }
+            modifyEvent(date);
+        });
+
 
         var removeSchedule = function(id){
             var date = click_date;
@@ -210,6 +259,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="addSchedule" data-dismiss="modal">등록</button>
+                <button type="button" class="btn btn-defualt" id="modifySchedule" data-dismiss="modal" >수정</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
             </div>
         </div>

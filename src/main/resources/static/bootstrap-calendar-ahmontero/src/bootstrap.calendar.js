@@ -174,7 +174,7 @@ var click_date = null;
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
                     + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="removeSchedule('+this.id+')">'
                     + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
-                    + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="modifySchedule('+this.id+')">'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm" id="modifyModal" data-toggle="modal" data-target="#createModal" onclick="modifyPage('+this.id+')">'
                     + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
                     + '<div class="pull-right">'
                     + time + '&nbsp&nbsp</div>'
