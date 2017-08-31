@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(User user, HttpSession httpSession, RedirectAttributes rttr, Model model){
-        User dbUser = userService.selectByUserId(user.getUserId());
+        User dbUser = userService.selectByEmail(user.getEmail());
 
         if(dbUser==null){
             rttr.addAttribute("error",true);
