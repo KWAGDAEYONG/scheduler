@@ -21,7 +21,7 @@
     <form class="form-signin" name='f' th:action="@{/user/login}" method='post'>
         <h2 class="form-signin-heading">Welcome Calender App</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="id" id="inputEmail" name='userId' class="form-control" placeholder="Email address"/>
+        <input type="id" id="inputEmail" name='email' class="form-control" placeholder="Email address"/>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" id="inputPassword" name='password' class="form-control" placeholder="Password"/>
         <div class="checkbox">
@@ -30,6 +30,10 @@
             </label>
         </div>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+
+    <form action="/user/registerForm" method="get">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
     </form>
 
 </div> <!-- /container -->

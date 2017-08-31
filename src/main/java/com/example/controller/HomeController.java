@@ -29,7 +29,7 @@ public class HomeController {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
             model.addAttribute("user",loginUser);
-            model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today))));
+            model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today),loginUser)));
             return "/schedule/schedule_sample2";
         }
         return "/user/login";

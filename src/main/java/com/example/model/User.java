@@ -24,6 +24,8 @@ public class User{
 
     private String password;
 
+    private String email;
+
     @OneToMany(mappedBy="userId")
     @OrderBy("date ASC")
     private List<Schedule> schedules;
@@ -38,6 +40,14 @@ public class User{
 
     public String getPassword() {
         return password;
+    }
+
+    public void setEmail(String eamil) {
+        this.email = eamil;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setId(Long id) {

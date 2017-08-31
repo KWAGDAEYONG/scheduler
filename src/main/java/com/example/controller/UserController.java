@@ -38,7 +38,7 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(User user, HttpSession httpSession, RedirectAttributes rttr, Model model){
-        User dbUser = userService.selectByUserId(user.getUserId());
+        User dbUser = userService.selectByEmail(user.getEmail());
 
         if(dbUser==null){
             rttr.addAttribute("error",true);
@@ -60,7 +60,7 @@ public class UserController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
         model.addAttribute("user",dbUser);
-        model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today))));
+        model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today), dbUser)));
         return "/schedule/schedule_sample2";
 
     }
@@ -73,4 +73,18 @@ public class UserController {
         }
         return "/user/login";
     }
+
+    @GetMapping("/registerForm")
+    public String registerForm(){
+        return "/user/register";
+    }
+
+
+    @PostMapping("/register")
+    public String register(User user){
+        userService.insert(user);
+
+        return "/user/login";
+    }
+
 }
