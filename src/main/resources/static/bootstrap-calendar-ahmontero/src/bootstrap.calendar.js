@@ -90,6 +90,8 @@ var click_date = null;
         this.msg_today = this.options.msg_today;        
         this.msg_events_hdr = this.options.msg_events_header;
         this.events = this.options.events;
+        this.eventList = this.events.apply(this, []);
+
 
         this.calendar = $(template.replace("%msg_today%",this.msg_today)).appendTo(this.element).on({
                                 click: $.proxy(this.click, this)
@@ -98,6 +100,7 @@ var click_date = null;
         this.live_date = new Date();
 
         var now = this.initialDate;
+        console.log("now " + now);
         console.log("year : "+ now.getFullYear() + "month : "+ now.getMonth() + "date : "+ now.getDate());
         if(this.initialDate === null){
             now = new Date();
@@ -121,18 +124,19 @@ var click_date = null;
 
         click_date = now;
         this.renderCalendar(now);
-        this.renderSchedule(now.getDate(), now.getMonth()+1, now.getFullYear(),  this.events.apply(this, []));
+        this.renderSchedule(now.getDate(), now.getMonth()+1, now.getFullYear(),  this.eventList);
     };
 
 
     Plugin.prototype.renderEvents = function (events, elem) {
+        console.log("renderEvents");
+        console.log(this.eventList);
         var live_date = this.live_date;
         var msg_evnts_hdr = this.msg_events_hdr;
         for(var i=1; i<=daysInMonth[live_date.getMonth()]; i++){
             $.each(events.event, function(){
                 var year = 1900 + live_date.getYear();
                 var month = live_date.getMonth();
-
                 var view_date = new Date(year, month, i, 0,0,0,0);
                 var event_date = new Date(this.date);
                 if( event_date.getDate() == view_date.getDate()
@@ -140,6 +144,7 @@ var click_date = null;
                     && event_date.getFullYear() == view_date.getFullYear()
 
                 ){
+
                     elem.parent('div:first').find('#day_' + i)
                     .removeClass("day")
                     .addClass('holiday')
@@ -194,16 +199,13 @@ var click_date = null;
     };
 
     Plugin.prototype.loadEvents = function () {
-        if(!(this.events === null)){
-            if(typeof this.events == 'function'){
-                this.renderEvents(this.events.apply(this, []), this.calendar);
-            }
-        }
+        this.renderEvents(this.eventList, this.calendar);
     };
 
 
-
     Plugin.prototype.renderCalendar = function (date) {
+        console.log("renderCalendar");
+        console.log(date);
         var mon = new Date(this.yy, this.mm, 1);
 
         this.element.parent('div:first').find('.year').empty();
@@ -359,7 +361,6 @@ var click_date = null;
                                     var prv = new Date(this.yp, this.mm, 1);
                                     this.live_date = prv;
                                     this.requestEvents(prv);
-                                    this.renderCalendar(prv, this.events);
                                     this.element.trigger({
                                         type: 'onPrev'
                                     });
@@ -368,7 +369,7 @@ var click_date = null;
                                     this.update_date('crt');
                                     var now = new Date();
                                     this.live_date = now;
-                                    this.renderCalendar(now, this.events);
+                                    this.renderCalendar(now, this.eventList);
                                     this.element.trigger({
                                         type: 'onCurrent'
                                     });
@@ -378,7 +379,6 @@ var click_date = null;
                                     var nxt = new Date(this.yn, this.mm, 1);
                                     this.live_date = nxt;
                                     this.requestEvents(nxt);
-                                    this.renderCalendar(nxt, this.events);
                                     this.element.trigger({
                                         type: 'onNext'
                                     });
@@ -398,17 +398,22 @@ var click_date = null;
 
 
     Plugin.prototype.requestEvents = function(date){
-        $.ajax({
+        var request = $.ajax({
             type:"GET",
             url : "/schedule/prevOrNext",
             data : {date : date.getFullYear()+'-'+(date.getMonth()+1)},
+            context : this,
+            dataType:'json',
+            contentType: "application/json; charset=UTF-8",
             success : function(data) {
-                this.events = function () {
-                    return {
-                        "event": data
-                    }
-                }
-                console.log(data);
+
+                var events = function(){
+                    return {"event" : data}
+                };
+                this.eventList = events.apply([], this);
+                console.log("prevOrNext");
+                console.log(this.eventList);
+                this.renderCalendar(date);
             }
         });
     }
@@ -450,5 +455,7 @@ var click_date = null;
         });
     }
 
-
+    $.fn[pluginName].renderCalendar = function(date){
+      this.renderCalendar(date);
+    }
 })( jQuery, window, document );

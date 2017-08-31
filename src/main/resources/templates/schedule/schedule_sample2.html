@@ -34,7 +34,6 @@
         });
 
         $(document).on("click", "#makeModal", function () {
-            console.log("clicked");
             var date = click_date;
             console.log(date);
             $("#modalTitle").empty();
@@ -75,6 +74,7 @@
                     $('#createModal').find("#scheduleTitle").val(data.title);
                     $('#createModal').find("#scheduleContent").val(data.content);
                     $('#createModal').find("#timepicker").val(data.time);
+                    $('#createModal').find("#id").val(data.id);
                 }
             });
         };
@@ -84,12 +84,13 @@
             var content = $('#scheduleContent').val();
             var title = $('#scheduleTitle').val();
             var time = $('#timepicker').val();
-            var id = $('#id').val();
+            var id = $('#id').html();
             console.log("time : "+time)
             var now = new Date();
             var event_month = date.getMonth()+1;
             var modifyEvent = function(date){
-                var scheduleData = '{"id" :'+id+'"date":"'+date.getFullYear() + '-' + event_month + '-' + date.getDate()+'", "time":"'+time+'", "content":"'+content+'", "title":"'+title+'"}';
+                console.log("id : " + id);
+                var scheduleData = '{"id" :"'+id+'", "date":"'+date.getFullYear() + '-' + event_month + '-' + date.getDate()+'", "time":"'+time+'", "content":"'+content+'", "title":"'+title+'"}';
                 $.ajax({
                     url: "/schedule/modify",
                     dataType: 'json',
@@ -239,6 +240,7 @@
 <div class="modal fade" id="createModal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div id="id"></div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="modalTitle">2017년 5월 25일 일정 추가</h4>
@@ -259,7 +261,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" id="addSchedule" data-dismiss="modal">등록</button>
-                <button type="button" class="btn btn-defualt" id="modifySchedule" data-dismiss="modal" >수정</button>
+                <button type="button" class="btn btn-default" id="modifySchedule" data-dismiss="modal" >수정</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
             </div>
         </div>
