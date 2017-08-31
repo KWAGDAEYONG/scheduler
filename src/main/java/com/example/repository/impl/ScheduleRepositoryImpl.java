@@ -2,6 +2,7 @@ package com.example.repository.impl;
 
 import com.example.model.QSchedule;
 import com.example.model.Schedule;
+import com.example.model.User;
 import com.example.repository.ScheduleRepositoryQueryDsl;
 import org.springframework.data.jpa.repository.support.QueryDslRepositorySupport;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements
     }
 
     @Override
-    public List<Schedule> selectByMonth(String date){
+    public List<Schedule> selectByMonth(String date, User user){
         QSchedule qSchedule = QSchedule.schedule;
         Date startDate = Date.valueOf(date+"-"+START);
         Calendar calendar = Calendar.getInstance();
@@ -40,6 +41,7 @@ public class ScheduleRepositoryImpl extends QueryDslRepositorySupport implements
 
         return from(qSchedule)
                 .where(qSchedule.date.between(startDate,endDate))
+                .where(qSchedule.userId.eq(user))
                 .fetch();
     }
 }

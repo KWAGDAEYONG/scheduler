@@ -22,12 +22,12 @@ public class ScheduleService {
     public List<Schedule> selectByUser(User userId){
         return scheduleRepository.findByUserId(userId);
     }
-    public List<Schedule> selectByMonth(String date){
-        return scheduleRepository.selectByMonth(date);
+    public List<Schedule> selectByMonth(String date, User user){
+        return scheduleRepository.selectByMonth(date, user);
     }
-    public List<Schedule> selectByScheduleMonth(Schedule schedule){
+    public List<Schedule> selectByScheduleMonth(Schedule schedule, User user){
         String date = schedule.getDate().toString();
-        return scheduleRepository.selectByMonth(date.substring(0,7));
+        return scheduleRepository.selectByMonth(date.substring(0,7), user);
     }
 
     public Schedule remove(Long id){

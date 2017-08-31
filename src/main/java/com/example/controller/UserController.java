@@ -60,7 +60,7 @@ public class UserController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
 
         model.addAttribute("user",dbUser);
-        model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today))));
+        model.addAttribute("schedules",JsonConverter.schedulesToJson(scheduleService.selectByMonth(sdf.format(today), dbUser)));
         return "/schedule/schedule_sample2";
 
     }
@@ -73,4 +73,18 @@ public class UserController {
         }
         return "/user/login";
     }
+
+    @GetMapping("/registerForm")
+    public String registerForm(){
+        return "/user/register";
+    }
+
+
+    @PostMapping("/register")
+    public String register(User user){
+        userService.insert(user);
+
+        return "/user/login";
+    }
+
 }
