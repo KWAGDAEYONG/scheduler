@@ -325,7 +325,7 @@ var click_date = null;
                                 year: year
                             });
                             click_date = new Date(year, month-1, day, 0,0,0,0);
-                            this.renderSchedule(day,month, year, this.events.apply(this, []));
+                            this.renderSchedule(day,month, year, this.eventList);
                         }else if(target.is('.holiday')){
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
@@ -338,7 +338,7 @@ var click_date = null;
                                 year: year
                             });
                             click_date = new Date(year, month-1 ,day,  0,0,0,0);
-                            this.renderSchedule(day,month, year, this.events.apply(this, []));
+                            this.renderSchedule(day,month, year, this.eventList);
                         }else if(target.is('.today')){
                             day = parseInt(target.attr('day'), 10)||1;
                             month = parseInt(target.attr('month'), 10)||1;
@@ -350,7 +350,7 @@ var click_date = null;
                                 year: year
                             });
                             click_date = new Date(year, month-1, day, 0,0,0,0);
-                            this.renderSchedule(day,month, year, this.events.apply(this, []));
+                            this.renderSchedule(day,month, year, this.eventList);
             }
                         break;
                     case 'th':
@@ -406,7 +406,6 @@ var click_date = null;
             dataType:'json',
             contentType: "application/json; charset=UTF-8",
             success : function(data) {
-
                 var events = function(){
                     return {"event" : data}
                 };
