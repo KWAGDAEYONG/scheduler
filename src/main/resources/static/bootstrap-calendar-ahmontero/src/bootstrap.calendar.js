@@ -68,10 +68,14 @@ var click_date = null;
         // is generally empty because we don't want to alter
         // the default options for future instances of the plugin
         this.options = $.extend( {}, defaults, options) ;
-        if(date === undefined)
+        if(date === undefined){
             this.initialDate = new Date();
-        else
-            this.initialDate = new Date(year,month, date);
+            console.log("initialDate : null");
+        }
+        else {
+            this.initialDate = new Date(year, month, date);
+            console.log("initialDate : non null");
+        }
         this._defaults = defaults;
         this._name = pluginName;
 
@@ -91,21 +95,24 @@ var click_date = null;
         this.msg_events_hdr = this.options.msg_events_header;
         this.events = this.options.events;
         this.eventList = this.events.apply(this, []);
-
+        console.log("eventList!");
+        console.log(this.eventList);
 
         this.calendar = $(template.replace("%msg_today%",this.msg_today)).appendTo(this.element).on({
                                 click: $.proxy(this.click, this)
                         });
 
-        this.live_date = new Date();
+
 
         var now = this.initialDate;
         console.log("now " + now);
         console.log("year : "+ now.getFullYear() + "month : "+ now.getMonth() + "date : "+ now.getDate());
         if(this.initialDate === null){
             now = new Date();
+            this.live_date = new Date();
         }else{
             now = this.initialDate;
+            this.live_date = now;
         }
         this.mm = now.getMonth();
         this.yy = now.getFullYear();
@@ -130,8 +137,10 @@ var click_date = null;
 
     Plugin.prototype.renderEvents = function (events, elem) {
         console.log("renderEvents");
-        console.log(this.eventList);
+        console.log(events);
         var live_date = this.live_date;
+        console.log("live_date");
+        console.log(live_date);
         var msg_evnts_hdr = this.msg_events_hdr;
         for(var i=1; i<=daysInMonth[live_date.getMonth()]; i++){
             $.each(events.event, function(){
@@ -177,7 +186,8 @@ var click_date = null;
 
                 $('#scheduleList').append('<div class="panel panel-default">'
                     +'<div class="panel-heading"><span>'+this.title+'</span>&nbsp;'
-                    + '<button type="button" class="pull-right btn btn-default btn-sm" onclick="removeSchedule('+this.id+')">'
+                    //+ '<button type="button" class="pull-right btn btn-default btn-sm" onclick="removeSchedule('+this.id+')">'
+                    + '<button type="button" class="pull-right btn btn-default btn-sm" id="confirmDelete" data-toggle="modal" data-target="#confirmModal" onclick="confirmDelete('+this.id+')">'
                     + '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>'
                     + '<button type="button" class="pull-right btn btn-default btn-sm" id="modifyModal" data-toggle="modal" data-target="#createModal" onclick="modifyPage('+this.id+')">'
                     + '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>'
@@ -195,7 +205,8 @@ var click_date = null;
         if(!hasEvent){
             $('#scheduleList').append('<div>일정이 없습니다</div>');
         }
-
+        $('#makeModal').show();
+        $('.page').show();
     };
 
     Plugin.prototype.loadEvents = function () {
@@ -413,6 +424,10 @@ var click_date = null;
                 console.log("prevOrNext");
                 console.log(this.eventList);
                 this.renderCalendar(date);
+                $('#scheduleHeader').empty();
+                $('#scheduleList').empty();
+                $('#makeModal').hide();
+                $('.page').hide();
             }
         });
     }
@@ -454,7 +469,4 @@ var click_date = null;
         });
     }
 
-    $.fn[pluginName].renderCalendar = function(date){
-      this.renderCalendar(date);
-    }
 })( jQuery, window, document );

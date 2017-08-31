@@ -59,6 +59,16 @@
             console.log(date);
         });
 
+        $(document).on("click", "#deleteSchedule", function(){
+            var id = $('#deleteId').html();
+            $("#confirmModal").hide();
+            removeSchedule(id);
+        });
+
+        var confirmDelete = function(id){
+            $('#deleteId').html(id);
+        }
+
         var modifyPage = function(id){
             var scheduleData = '{"id":"'+id+'"}';
             $.ajax({
@@ -105,13 +115,12 @@
                                 "event" : data
                             }
                         }
-
                         $('#calendar').empty();
                         console.log(JSON.stringify(data));
+                        console.log("modify and re-render");
                         $('#calendar').Calendar({ 'events': eventFuncAdd, 'weekStart': 1 }, date.getFullYear(), date.getMonth(), date.getDate() );
-                        if(data.success == true){
 
-                        }
+
                     }
                 })
             }
@@ -139,9 +148,7 @@
                     $('#calendar').empty();
                     console.log(JSON.stringify(data));
                     $('#calendar').Calendar({ 'events': eventFuncAdd, 'weekStart': 1 }, date.getFullYear(), date.getMonth(), date.getDate() );
-                    if(data.success == true){
-
-                    }
+                    this.live_date = date;
                 }
             });
         };
@@ -177,9 +184,7 @@
                         $('#calendar').empty();
                         console.log(JSON.stringify(data));
                         $('#calendar').Calendar({ 'events': eventFuncAdd, 'weekStart': 1 }, date.getFullYear(), date.getMonth(), date.getDate() );
-                        if(data.success == true){
-
-                        }
+                        this.live_date = date;
                     }
                 })
             }
@@ -228,8 +233,6 @@
             <div class="page text-center">
                 <ul class ="pagination">
                     <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
                 </ul>
             </div>
         </div>
@@ -240,7 +243,7 @@
 <div class="modal fade" id="createModal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div id="id"></div>
+            <div id="id" class="text-hide"></div>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="modalTitle">2017년 5월 25일 일정 추가</h4>
@@ -265,6 +268,31 @@
                 <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
             </div>
         </div>
+    </div>
+</div>
+
+
+
+<!-- Confirm popup -->
+<div class="modal fade" id="confirmModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+
+        <div id="deleteId" class="text-hide"></div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">일정 삭제</h4>
+            </div>
+            <div class="modal-body">
+                <p>일정을 삭제하시겠습니까?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="deleteSchedule" data-dismiss="modal">확인</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">취소</button>
+            </div>
+        </div>
+
     </div>
 </div>
 <script type="text/javascript">
